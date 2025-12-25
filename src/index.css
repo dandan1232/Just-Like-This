@@ -1,32 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Sora:wght@400;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC",
-      "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
-    --font-serif: ui-serif, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC",
-      serif;
+    --font-sans: "Sora", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-display: "Noto Sans SC", "Sora", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-serif: "Noto Serif SC", "Songti SC", "Source Han Serif SC", serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
       "Liberation Mono", monospace;
-    --radius-card: 28px;
+    --radius-card: 26px;
   }
 
   [data-theme="warm"] {
-    --bg: #fffbf5;
-    --surface: #f6efe6;
-    --card: rgba(255, 253, 252, 0.9);
-    --ink: #2e2a24;
-    --muted: #6f665c;
-    --line: rgba(46, 42, 36, 0.12);
-    --accent: #e27d60;
-    --accent-strong: #d45a3a;
-    --accent-soft: rgba(226, 125, 96, 0.18);
-    --chip: rgba(226, 125, 96, 0.12);
-    --glow-1: rgba(226, 125, 96, 0.35);
-    --glow-2: rgba(246, 210, 196, 0.55);
-    --glow-3: rgba(153, 168, 143, 0.4);
+    --bg: #fdf7f0;
+    --surface: #f7efe5;
+    --card: rgba(255, 255, 255, 0.92);
+    --ink: #2b2722;
+    --muted: #7b7268;
+    --muted-strong: #b9afa6;
+    --line: rgba(46, 42, 36, 0.1);
+    --accent: #e58959;
+    --accent-strong: #d26b3d;
+    --accent-soft: rgba(229, 137, 89, 0.18);
+    --chip: rgba(229, 137, 89, 0.12);
+    --glow-1: rgba(243, 199, 170, 0.6);
+    --glow-2: rgba(255, 230, 206, 0.65);
+    --glow-3: rgba(255, 237, 221, 0.75);
+    --shadow-soft: 0 20px 50px rgba(53, 42, 31, 0.12);
   }
 
   [data-theme="cool"] {
@@ -35,6 +38,7 @@
     --card: rgba(252, 253, 255, 0.92);
     --ink: #1f2a37;
     --muted: #5f6b7b;
+    --muted-strong: #a4b0bf;
     --line: rgba(15, 23, 42, 0.12);
     --accent: #4e7c8a;
     --accent-strong: #3a6a77;
@@ -43,6 +47,7 @@
     --glow-1: rgba(78, 124, 138, 0.32);
     --glow-2: rgba(170, 198, 210, 0.5);
     --glow-3: rgba(156, 180, 196, 0.4);
+    --shadow-soft: 0 18px 42px rgba(15, 23, 42, 0.12);
   }
 
   [data-theme="dark"] {
@@ -52,6 +57,7 @@
     --card: rgba(36, 31, 28, 0.92);
     --ink: #f5f3ef;
     --muted: #b3a89f;
+    --muted-strong: #9f948b;
     --line: rgba(255, 255, 255, 0.12);
     --accent: #e6a57a;
     --accent-strong: #d98b59;
@@ -60,10 +66,11 @@
     --glow-1: rgba(230, 165, 122, 0.3);
     --glow-2: rgba(120, 98, 82, 0.45);
     --glow-3: rgba(94, 76, 63, 0.4);
+    --shadow-soft: 0 20px 48px rgba(0, 0, 0, 0.35);
   }
 
   html {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   body {
@@ -94,9 +101,9 @@
 @layer components {
   .app-shell {
     min-height: 100vh;
-    background-image: radial-gradient(circle at 18% 12%, var(--glow-1) 0, transparent 45%),
-      radial-gradient(circle at 86% 8%, var(--glow-2) 0, transparent 40%),
-      radial-gradient(circle at 80% 84%, var(--glow-3) 0, transparent 48%);
+    background-image: radial-gradient(circle at 20% 12%, var(--glow-1) 0, transparent 45%),
+      radial-gradient(circle at 85% 8%, var(--glow-2) 0, transparent 45%),
+      radial-gradient(circle at 70% 80%, var(--glow-3) 0, transparent 55%);
     position: relative;
     overflow: hidden;
   }
@@ -115,8 +122,141 @@
     border-radius: var(--radius-card);
     border: 1px solid var(--line);
     background: var(--card);
-    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+    box-shadow: var(--shadow-soft);
     backdrop-filter: blur(10px);
+  }
+
+  .logo-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.05rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 12px 30px rgba(42, 34, 24, 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  [data-theme="dark"] .logo-pill {
+    background: rgba(36, 31, 28, 0.86);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .logo-icon {
+    display: flex;
+    height: 36px;
+    width: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--ink);
+    font-size: 0.8rem;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-btn:hover {
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+
+  [data-theme="dark"] .nav-btn {
+    background: rgba(36, 31, 28, 0.78);
+  }
+
+  .island {
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 14px 36px rgba(42, 34, 24, 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  [data-theme="dark"] .island {
+    background: rgba(36, 31, 28, 0.86);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  }
+
+  .island-icon {
+    display: flex;
+    height: 32px;
+    width: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  .island-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--ink);
+    font-size: 0.75rem;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .island-btn:hover {
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+
+  [data-theme="dark"] .island-btn {
+    background: rgba(36, 31, 28, 0.7);
+  }
+
+  .tool-card {
+    position: relative;
+    --card-glow: var(--accent-soft);
+    --card-glow-2: transparent;
+    --icon-bg: var(--accent-soft);
+    --icon-ink: var(--accent-strong);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--line);
+    background: var(--card);
+    box-shadow: 0 18px 40px rgba(45, 36, 26, 0.12);
+    backdrop-filter: blur(8px);
+  }
+
+  [data-theme="dark"] .tool-card {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  }
+
+  .tool-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 16% 18%, var(--card-glow) 0, transparent 55%),
+      radial-gradient(circle at 88% 6%, var(--card-glow-2) 0, transparent 60%);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .tool-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .tool-icon {
+    background: var(--icon-bg);
+    color: var(--icon-ink);
   }
 
   .chip {
@@ -218,5 +358,11 @@
   .soft-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
   }
 }

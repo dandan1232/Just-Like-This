@@ -3,8 +3,11 @@ import {
   BadgeCheck,
   Bell,
   Grid2X2,
+  Leaf,
   MessageCircle,
+  Palette,
   Plus,
+  Settings,
   ShoppingBag,
   Utensils,
   X,
@@ -12,25 +15,23 @@ import {
 
 const TRANSLATIONS = {
   zh: {
-    appName: "Just-Like-This",
+    appName: "就这样吧",
     nav: {
-      switchLang: "中英切换",
-      switchTheme: "主题",
+      settings: "设置",
+      theme: "主题",
       warm: "暖阳",
       cool: "微凉",
       dark: "静夜",
     },
     hero: {
-      title: "就这样吧，挺好的",
-      subtitle: "极简主义 + 冷幽默 + 便当盒布局的日常决策与解压工具集。",
+      title: "生活很累",
+      titleMuted: "随便一点",
+      subtitle: "Keep it simple, keep it chill.",
     },
     grid: {
-      hint: "点击卡片进入工具模式",
-      coming: "敬请期待",
-      comingDesc: "下一款工具正在沸腾。",
+      coming: "还在开发",
+      comingDesc: "开发者去摸鱼了…",
       label: "工具",
-      enter: "进入工具",
-      soon: "即将",
     },
     common: {
       back: "返回主页",
@@ -38,8 +39,8 @@ const TRANSLATIONS = {
     },
     tools: {
       dinner: {
-        title: "晚饭决策姬",
-        desc: "用一点随机，带走选择焦虑。",
+        title: "晚饭吃什么",
+        desc: "帮你人类选择困难。",
         cta: "抽一次",
         add: "加入菜单",
         placeholder: "添加菜单，比如：番茄炒蛋",
@@ -50,8 +51,8 @@ const TRANSLATIONS = {
         defaultMenu: ["家常面", "牛肉饭", "砂锅粥", "清炒时蔬", "小火锅", "寿司卷"],
       },
       buy: {
-        title: "买不买决策器",
-        desc: "无论结果如何，重点是给你一个借口。",
+        title: "买不买",
+        desc: "冲动消费终结者。",
         cta: "请裁决",
         buy: "买",
         hold: "先别",
@@ -73,16 +74,16 @@ const TRANSLATIONS = {
         },
       },
       fish: {
-        title: "赛博木鱼",
-        desc: "敲一下，Bug 自己走。",
+        title: "敲木鱼",
+        desc: "心诚则灵，Bug 退散。",
         cta: "敲一下",
         modes: ["Bug 退散", "需求不改", "会议收敛", "灵感涌现"],
         responses: ["功德 +1", "已静音尘世", "Bug 已远离", "呼吸变稳了"],
         counterLabel: "今日功德",
       },
       excuse: {
-        title: "完美摸鱼借口",
-        desc: "荒诞但自洽，让紧张降温。",
+        title: "摸鱼借口",
+        desc: "优雅地逃离现场。",
         cta: "生成借口",
         default: "点击生成一条合理又不完全合理的理由。",
         pool: [
@@ -95,7 +96,7 @@ const TRANSLATIONS = {
       },
       persona: {
         title: "今日人设",
-        desc: "给自己一个轻巧的标签。",
+        desc: "我不装了，我摊牌了。",
         cta: "刷新人设",
         default: "等待分配",
         pool: [
@@ -109,25 +110,23 @@ const TRANSLATIONS = {
     },
   },
   en: {
-    appName: "Just-Like-This",
+    appName: "Just Like This",
     nav: {
-      switchLang: "Language",
-      switchTheme: "Theme",
+      settings: "Settings",
+      theme: "Theme",
       warm: "Warm",
       cool: "Cool",
       dark: "Night",
     },
     hero: {
-      title: "Just like this. It is enough.",
-      subtitle: "Minimalism + dry humor + bento grid for daily decisions and chill.",
+      title: "Life is heavy",
+      titleMuted: "Keep it simple",
+      subtitle: "Keep it simple, keep it chill.",
     },
     grid: {
-      hint: "Tap a card to enter a tool.",
       coming: "Coming soon",
       comingDesc: "Next tool is simmering.",
       label: "Tool",
-      enter: "Enter",
-      soon: "Soon",
     },
     common: {
       back: "Back",
@@ -208,12 +207,54 @@ const TRANSLATIONS = {
 };
 
 const TOOL_CARDS = [
-  { id: "dinner", icon: Utensils, size: "lg:col-span-2 lg:row-span-2" },
-  { id: "buy", icon: ShoppingBag, size: "lg:row-span-1" },
-  { id: "fish", icon: Bell, size: "lg:row-span-2" },
-  { id: "excuse", icon: MessageCircle, size: "lg:row-span-1" },
-  { id: "persona", icon: BadgeCheck, size: "lg:row-span-1" },
-  { id: "coming", icon: Grid2X2, size: "lg:row-span-1" },
+  {
+    id: "dinner",
+    icon: Utensils,
+    glow: "rgba(255, 214, 187, 0.75)",
+    glow2: "rgba(255, 244, 232, 0.9)",
+    iconBg: "rgba(255, 214, 187, 0.6)",
+    iconInk: "#c46a3d",
+  },
+  {
+    id: "buy",
+    icon: ShoppingBag,
+    glow: "rgba(212, 229, 255, 0.75)",
+    glow2: "rgba(236, 244, 255, 0.9)",
+    iconBg: "rgba(212, 229, 255, 0.6)",
+    iconInk: "#4c6fa5",
+  },
+  {
+    id: "fish",
+    icon: Bell,
+    glow: "rgba(255, 236, 201, 0.75)",
+    glow2: "rgba(255, 249, 236, 0.9)",
+    iconBg: "rgba(255, 236, 201, 0.6)",
+    iconInk: "#c28b2d",
+  },
+  {
+    id: "excuse",
+    icon: MessageCircle,
+    glow: "rgba(200, 236, 248, 0.75)",
+    glow2: "rgba(232, 248, 255, 0.9)",
+    iconBg: "rgba(200, 236, 248, 0.6)",
+    iconInk: "#3f7e9a",
+  },
+  {
+    id: "persona",
+    icon: BadgeCheck,
+    glow: "rgba(236, 214, 242, 0.75)",
+    glow2: "rgba(246, 236, 250, 0.9)",
+    iconBg: "rgba(236, 214, 242, 0.6)",
+    iconInk: "#7a4c92",
+  },
+  {
+    id: "coming",
+    icon: Grid2X2,
+    glow: "rgba(230, 230, 230, 0.7)",
+    glow2: "rgba(245, 245, 245, 0.9)",
+    iconBg: "rgba(226, 226, 226, 0.6)",
+    iconInk: "#8c8c8c",
+  },
 ];
 
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
@@ -222,8 +263,14 @@ const classNames = (...classes) => classes.filter(Boolean).join(" ");
 const ToolContainer = ({ toolId, content, onBack, labels }) => {
   if (!toolId) return null;
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-[var(--bg)]/85 px-4 py-10 backdrop-blur-sm">
-      <div className="card w-full max-w-4xl p-6 md:p-8 animate-fadeUp">
+    <div
+      className="fixed inset-0 z-40 flex items-center justify-center bg-[var(--bg)]/85 px-4 py-10 backdrop-blur-sm"
+      onClick={onBack}
+    >
+      <div
+        className="card w-full max-w-4xl p-6 md:p-8 animate-fadeUp"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex flex-wrap items-center justify-between gap-4">
           <button
             type="button"
@@ -231,13 +278,6 @@ const ToolContainer = ({ toolId, content, onBack, labels }) => {
             className="btn-ghost active:scale-95"
           >
             ← {labels.back}
-          </button>
-          <button
-            type="button"
-            onClick={onBack}
-            className="rounded-full border border-[var(--line)] px-3 py-1 text-xs text-[var(--muted)] transition hover:bg-[var(--accent-soft)] active:scale-95"
-          >
-            {labels.close}
           </button>
         </div>
         <div className="mt-6">{content}</div>
@@ -597,49 +637,53 @@ function App() {
           activeTool ? "opacity-0 blur-sm pointer-events-none" : "opacity-100"
         )}
       >
-        <div className="sticky top-4 z-20 mx-auto max-w-6xl">
-          <nav className="card flex flex-wrap items-center justify-between gap-4 px-4 py-3 backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent-strong)]">
-                <Grid2X2 size={18} />
-              </div>
-              <div>
-                <p className="text-sm font-semibold">{t.appName}</p>
-                <p className="text-xs text-[var(--muted)]">{t.hero.subtitle}</p>
-              </div>
+        <div className="sticky top-5 z-20 mx-auto flex max-w-6xl items-start justify-between gap-4">
+          <div className="logo-pill">
+            <div className="logo-icon">
+              <Leaf size={18} />
             </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={handleLangCycle}
-                aria-label={t.nav.switchLang}
-                title={t.nav.switchLang}
-                className="card flex h-11 w-11 items-center justify-center text-lg transition active:scale-95"
-              >
-                ⚙️
-              </button>
-              <button
-                type="button"
-                onClick={handleThemeCycle}
-                aria-label={t.nav.switchTheme}
-                title={t.nav.switchTheme}
-                className="card flex h-11 w-11 items-center justify-center text-lg transition active:scale-95"
-              >
-                🎨
-              </button>
-            </div>
-          </nav>
+            <span className="text-sm font-semibold">{t.appName}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleLangCycle}
+              aria-label={t.nav.settings}
+              title={t.nav.settings}
+              className="nav-btn"
+            >
+              <Settings size={18} />
+              <span className="hidden text-xs font-semibold sm:inline">{t.nav.settings}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleThemeCycle}
+              aria-label={t.nav.theme}
+              title={t.nav.theme}
+              className="nav-btn"
+            >
+              <Palette size={18} />
+              <span className="hidden text-xs font-semibold sm:inline">{t.nav.theme}</span>
+            </button>
+          </div>
         </div>
 
-        <section className="mx-auto mt-10 max-w-6xl">
-          <div className="flex flex-col gap-2 text-center">
-            <h1 className="text-3xl font-black tracking-tighter md:text-4xl">
-              {t.hero.title}
+        <section className="mx-auto mt-14 max-w-6xl">
+          <div className="flex flex-col gap-3 text-center">
+            <h1 className="font-display text-4xl font-black leading-tight tracking-tight md:text-6xl lg:text-7xl">
+              <span className="text-[var(--ink)]">{t.hero.title}</span>
+              <span className="text-[var(--accent)]">.</span>
+              <span className="block text-[var(--muted-strong)]">
+                {t.hero.titleMuted}
+                <span className="text-[var(--muted-strong)]">.</span>
+              </span>
             </h1>
-            <p className="text-sm text-[var(--muted)] md:text-base">{t.grid.hint}</p>
+            <p className="text-sm text-[var(--muted)] md:text-base">
+              {t.hero.subtitle}
+            </p>
           </div>
 
-          <div className="mt-10 grid auto-rows-[180px] gap-6 md:auto-rows-[200px] lg:grid-cols-3">
+          <div className="mt-12 grid auto-rows-[170px] gap-6 sm:grid-cols-2 md:auto-rows-[190px] lg:grid-cols-3">
             {TOOL_CARDS.map((tool, index) => {
               const content =
                 tool.id === "coming"
@@ -652,30 +696,25 @@ function App() {
                   type="button"
                   onClick={() => handleOpenTool(tool.id)}
                   className={classNames(
-                    "card group flex h-full flex-col justify-between overflow-hidden p-6 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 hover:shadow-soft active:scale-[0.98]",
-                    tool.size,
+                    "tool-card group flex h-full flex-col justify-between overflow-hidden p-6 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 active:scale-[0.98]",
                     tool.id === "coming" && "cursor-not-allowed opacity-70"
                   )}
-                  style={{ animationDelay: `${index * 80}ms` }}
+                  style={{
+                    animationDelay: `${index * 80}ms`,
+                    "--card-glow": tool.glow,
+                    "--card-glow-2": tool.glow2,
+                    "--icon-bg": tool.iconBg,
+                    "--icon-ink": tool.iconInk,
+                  }}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="chip">
-                      {tool.id === "coming" ? t.grid.soon : t.grid.label}
-                    </span>
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent-strong)] transition group-hover:scale-105">
+                    <div className="tool-icon flex h-11 w-11 items-center justify-center rounded-2xl transition group-hover:scale-105">
                       <Icon size={20} />
                     </div>
                   </div>
                   <div className="mt-6 space-y-2">
-                    <h3 className="text-xl font-black tracking-tighter">
-                      {content.title}
-                    </h3>
+                    <h3 className="text-xl font-black tracking-tight">{content.title}</h3>
                     <p className="text-sm text-[var(--muted)]">{content.desc}</p>
-                  </div>
-                  <div className="mt-6 flex items-center gap-2 text-xs text-[var(--muted)]">
-                    <span className="pill">
-                      {tool.id === "coming" ? t.grid.coming : t.grid.enter}
-                    </span>
                   </div>
                 </button>
               );
