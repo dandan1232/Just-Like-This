@@ -707,6 +707,8 @@ const TOOL_CARDS = [
 
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
+const getUniqueId = () =>
+  `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
 const ToolContainer = ({ toolId, content, onBack, labels }) => {
   if (!toolId) return null;
@@ -753,8 +755,7 @@ function App() {
 
   const [merit, setMerit] = useState(0);
   const [fishModeIndex, setFishModeIndex] = useState(0);
-  const [fishPulse, setFishPulse] = useState("");
-  const [fishPulseKey, setFishPulseKey] = useState(0);
+  const [fishPops, setFishPops] = useState([]);
 
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
   const [persona, setPersona] = useState(t.tools.persona.default);
@@ -832,10 +833,19 @@ function App() {
     }, 600);
   };
 
-  const handleFishTap = () => {
+  const handleFishTap = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const pop = {
+      id: getUniqueId(),
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      text: getRandomItem(t.tools.fish.responses),
+    };
     setMerit((prev) => prev + 1);
-    setFishPulse(getRandomItem(t.tools.fish.responses));
-    setFishPulseKey((prev) => prev + 1);
+    setFishPops((prev) => [...prev, pop]);
+    setTimeout(() => {
+      setFishPops((prev) => prev.filter((item) => item.id !== pop.id));
+    }, 900);
   };
 
   const handleExcuse = () => {
@@ -991,7 +1001,7 @@ function App() {
 
     if (activeTool === "fish") {
       return (
-        <div className="space-y-4">
+        <div className="space-y-4 text-center">
           <div className="relative">
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.fish.title}
@@ -1000,7 +1010,7 @@ function App() {
               {t.tools.fish.desc}
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             {t.tools.fish.modes.map((mode, index) => (
               <button
                 key={mode}
@@ -1018,19 +1028,20 @@ function App() {
             ))}
           </div>
           <div className="relative">
-            {fishPulse && (
-              <span
-                key={fishPulseKey}
-                className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-6 animate-fadeUp text-sm text-[var(--accent-strong)]"
-              >
-                {fishPulse}
-              </span>
-            )}
             <button
               type="button"
               onClick={handleFishTap}
-              className="flex w-full flex-col items-center gap-3 rounded-[36px] border border-[var(--line)] bg-[var(--surface)] p-8 text-center transition hover:-translate-y-0.5 active:scale-95"
+              className="fish-drum"
             >
+              {fishPops.map((pop) => (
+                <span
+                  key={pop.id}
+                  className="fish-pop"
+                  style={{ left: pop.x, top: pop.y }}
+                >
+                  {pop.text}
+                </span>
+              ))}
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--accent-soft)] text-3xl">
                 🔔
               </div>
@@ -1102,8 +1113,7 @@ function App() {
     dinnerResult,
     excuse,
     fishModeIndex,
-    fishPulse,
-    fishPulseKey,
+    fishPops,
     isRolling,
     menuInput,
     menuItems,
@@ -1132,6 +1142,18 @@ function App() {
 
   return (
     <div className="app-shell font-sans">
+      <style>{`
+        @keyframes floatUp {
+          0% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(-50%, calc(-50% - 60px)) scale(1.08);
+          }
+        }
+      `}</style>
       <button
         type="button"
         onClick={handleCloseTool}
