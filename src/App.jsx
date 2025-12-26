@@ -22,7 +22,7 @@ const TRANSLATIONS = {
   zh: {
     appName: "就这样吧",
     nav: {
-      settings: "设置",
+      settings: "语言",
       theme: "主题",
       warm: "暖阳",
       cool: "微凉",
@@ -41,6 +41,11 @@ const TRANSLATIONS = {
     common: {
       back: "返回主页",
       close: "关闭",
+    },
+    footer: {
+      tagline: "就这样吧，挺好的。",
+      copyright: "©念安-2026.01",
+      contact: "与我联系",
     },
     tools: {
       dinner: {
@@ -224,6 +229,7 @@ const TRANSLATIONS = {
         cta: "给个痛快话",
         buy: "买!",
         hold: "别买!",
+        mood: "心理博弈结果",
         hint: "准备好就交给我。",
         thinking: "闭上眼，默念那个商品。",
         reasons: {
@@ -332,7 +338,7 @@ const TRANSLATIONS = {
   en: {
     appName: "Just Like This",
     nav: {
-      settings: "Settings",
+      settings: "Language",
       theme: "Theme",
       warm: "Warm",
       cool: "Cool",
@@ -351,6 +357,11 @@ const TRANSLATIONS = {
     common: {
       back: "Back",
       close: "Close",
+    },
+    footer: {
+      tagline: "Just like this, it's fine.",
+      copyright: "©Nianan-2026.01",
+      contact: "Contact me",
     },
     tools: {
       dinner: {
@@ -483,7 +494,7 @@ const TOOL_CARDS = [
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
-const ToolContainer = ({ toolId, content, onBack, labels, appName }) => {
+const ToolContainer = ({ toolId, content, onBack, labels }) => {
   if (!toolId) return null;
   return (
     <div
@@ -494,18 +505,7 @@ const ToolContainer = ({ toolId, content, onBack, labels, appName }) => {
         className="card w-full max-w-4xl p-6 md:p-8 animate-fadeUp max-h-[90vh] overflow-hidden"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="logo-pill transition hover:-translate-y-0.5 active:scale-95"
-            aria-label={labels.back}
-          >
-            <div className="logo-icon">
-              <Leaf size={18} />
-            </div>
-            <span className="text-sm font-semibold">{appName}</span>
-          </button>
+        <div className="flex flex-wrap items-center justify-start gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -921,19 +921,28 @@ function App() {
 
   return (
     <div className="app-shell font-sans">
+      <button
+        type="button"
+        onClick={handleCloseTool}
+        className="group fixed left-6 top-6 z-50 flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-xl"
+        aria-label={t.appName}
+      >
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70">
+          <Leaf
+            size={18}
+            className="text-stone-700 transition-transform duration-200 group-hover:rotate-12"
+          />
+        </span>
+        <span className="text-sm font-semibold text-stone-700">{t.appName}</span>
+      </button>
+
       <div
         className={classNames(
           "relative z-10 min-h-screen px-4 pb-16 pt-8 transition-all duration-500 md:px-10",
           activeTool ? "opacity-0 blur-sm pointer-events-none" : "opacity-100"
         )}
       >
-        <div className="sticky top-5 z-20 mx-auto flex max-w-6xl items-start justify-between gap-4">
-          <div className="logo-pill">
-            <div className="logo-icon">
-              <Leaf size={18} />
-            </div>
-            <span className="text-sm font-semibold">{t.appName}</span>
-          </div>
+        <div className="sticky top-5 z-20 mx-auto flex max-w-6xl items-start justify-end gap-4">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -1016,17 +1025,17 @@ function App() {
             })}
           </div>
 
-          <footer className="mt-20 text-center text-stone-400 text-[18px] font-medium italic">
-            "就这样吧，挺好的。"
-            <div className="mt-4 flex items-center justify-center gap-3 text-xs font-medium not-italic text-stone-360">
-              <span>©念安-2026.01</span>
+          <footer className="mt-20 text-center text-stone-300 text-[20px] font-medium italic">
+            {t.footer.tagline}
+            <div className="mt-3 flex items-center justify-center gap-3 text-xs font-medium not-italic text-stone-300">
+              <span>{t.footer.copyright}</span>
               <a
                 href="https://github.com/dandan1232"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-stone-400 transition hover:text-stone-500"
               >
-                与我联系
+                {t.footer.contact}
                 <Github size={14} />
               </a>
             </div>
@@ -1039,7 +1048,6 @@ function App() {
         content={toolContent}
         onBack={handleCloseTool}
         labels={t.common}
-        appName={t.appName}
       />
     </div>
   );
