@@ -544,6 +544,72 @@
     color: var(--muted);
   }
 
+  .buy-title {
+    margin-top: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .buy-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    text-align: center;
+    padding: 0.4rem 0;
+  }
+
+  .buy-face {
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    border: 2px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-strong);
+  }
+
+  .buy-face-placeholder {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .buy-decision {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .buy-reason {
+    border-radius: 999px;
+    background: rgba(243, 241, 235, 0.9);
+    color: var(--muted);
+    padding: 0.55rem 1.1rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    max-width: min(420px, 90%);
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(45, 36, 26, 0.12);
+  }
+
+  [data-theme="dark"] .buy-reason {
+    background: rgba(36, 31, 28, 0.85);
+  }
+
+  .buy-cta {
+    width: min(320px, 90%);
+    margin: 0 auto;
+    background: #2b2724;
+  }
+
+  .buy-cta:hover {
+    background: #1f1c1a;
+  }
+
   .soft-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--line), transparent);

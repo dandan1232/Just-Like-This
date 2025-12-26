@@ -3,11 +3,14 @@ import {
   BadgeCheck,
   Bell,
   Brain,
+  Frown,
+  Github,
   Grid2X2,
   Leaf,
   MessageCircle,
   Palette,
   Plus,
+  Smile,
   Sparkles,
   Settings,
   ShoppingBag,
@@ -42,7 +45,7 @@ const TRANSLATIONS = {
     tools: {
       dinner: {
         title: "晚饭吃什么",
-        desc: "帮你人类选择困难。",
+        desc: "解决人类终极难题",
         cta: "帮我选！",
         add: "加入菜单",
         placeholder: "加个想吃的...",
@@ -216,25 +219,77 @@ const TRANSLATIONS = {
         ],
       },
       buy: {
-        title: "买不买",
-        desc: "冲动消费终结者。",
-        cta: "请裁决",
-        buy: "买",
-        hold: "先别",
-        mood: "心理博弈结果",
-        hint: "给我 3 秒，我给你理由。",
+        title: "买不买决策姬",
+        desc: "冲动消费冷静剂",
+        cta: "给个痛快话",
+        buy: "买!",
+        hold: "别买!",
+        hint: "准备好就交给我。",
+        thinking: "闭上眼，默念那个商品。",
         reasons: {
           buy: [
             "今天够辛苦，奖励自己一次合理。",
             "折扣刚好，不买才会后悔。",
             "它会让你的生活更顺一点点。",
             "这次买，是对未来自己的投资。",
+            "你已经考虑过一阵子了，这不是冲动，是积累。",
+            "它能提升效率，而时间比钱更值钱。",
+            "你值得拥有一点让生活发光的小物件。",
+            "预算之内，情绪之上，完全可控。",
+            "这是对当下努力的一点温柔反馈。",
+            "灵感与喜欢来得不多见，抓住它也不错。",
+            "这不是消费，是把快乐提前领用。",
+            "如果它能带来长期陪伴，那就值得。",
+            "你不是买东西，你是在选择某种生活方式。",
+            "适度犒赏能帮你保持继续前进的动力。",
+            "金钱会流走，但体验会留在记忆里。",
+            "你不是在买东西，是在给生活增加一点温度。",
+            "如果它能提升情绪稳定性，那就是刚性需求。",
+            "你会用到它，而且不仅仅一次。",
+            "你的快乐值得被认真对待。",
+            "这是一笔小额投资，却能带来长期满足。",
+            "它能减少以后反复纠结的次数。",
+            "有时候，喜欢本身就是最好的理由。",
+            "眼下这个阶段，它确实适合你。",
+            "不是从众消费，这是你个人的选择。",
+            "你已经权衡过利弊，现在可以享受决定了。",
+            "它会成为你一天生活里的一点小亮点。",
+            "物质不是答案，但合适的东西能减轻负担。",
+            "比起犹豫消耗情绪，果断反而更轻松。",
+            "如果预算允许，那就是对自我的温柔支持。",
+            "生活不能全是理性，留一点浪漫给自己。",
           ],
           hold: [
             "三天后你就会忘掉它。",
             "先放购物车，观察它的情绪。",
             "今天已经很累，不必再处理它。",
             "给钱包留一点呼吸空间。",
+            "你只是需要快乐，不一定需要这个东西。",
+            "冲动五分钟，还款三个月，不值得。",
+            "当下的欲望不等于真实的需求。",
+            "等下一次看到它时，你再感受一次喜欢是否依然存在。",
+            "如果需要理由说服自己买，多半并不是真正需要。",
+            "你已经拥有类似功能的东西了。",
+            "真正的宝贝，不会因为多等几天而离开。",
+            "现在先不买，是一种更强大的自我掌控。",
+            "把这份冲动转化成储蓄，会更安心。",
+            "理性比短暂的满足更酷一点。",
+            "你不是错过机会，而是在筛选更好的选择。",
+            "你想要的不是它，而是当下那一点情绪安慰。",
+            "真正适合你的东西，不会只在这一刻出现。",
+            "把喜欢留到下一件真正值得的东西上。",
+            "短暂的刺激会散去，但支出会留下。",
+            "你不是在克制自己，而是在保护自己。",
+            "等心情稳定后再决定，你会更满意现在的选择。",
+            "当你需要说服自己购买时，其实答案已经很明显。",
+            "理性暂停，并不影响你继续热爱生活。",
+            "把这份冲动转化为积累，是一种温柔的强大。",
+            "今天先不买，你依然拥有选择权。",
+            "此刻的你，更需要休息，而不是消费。",
+            "不买，也是一种对自己的尊重。",
+            "有时候，空掉一笔消费，就是给未来留一份安全感。",
+            "你并没有错过，而是在掌控节奏。",
+            "理智并非冷漠，而是温柔地替你承担压力。",
           ],
         },
       },
@@ -313,13 +368,14 @@ const TRANSLATIONS = {
         defaultMenu: ["Noodles", "Beef bowl", "Porridge", "Greens", "Hot pot", "Sushi"],
       },
       buy: {
-        title: "Buy or Not",
+        title: "Buy or Not Muse",
         desc: "No matter the result, you get an excuse.",
-        cta: "Decide",
-        buy: "Buy",
-        hold: "Hold",
+        cta: "Make the call",
+        buy: "Buy!",
+        hold: "Don't buy!",
         mood: "Mind game",
-        hint: "Give me 3 seconds.",
+        hint: "Ready? Hand it to me.",
+        thinking: "Close your eyes and whisper it.",
         reasons: {
           buy: [
             "You earned it. Make it reasonable.",
@@ -427,7 +483,7 @@ const TOOL_CARDS = [
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
-const ToolContainer = ({ toolId, content, onBack, labels }) => {
+const ToolContainer = ({ toolId, content, onBack, labels, appName }) => {
   if (!toolId) return null;
   return (
     <div
@@ -439,6 +495,17 @@ const ToolContainer = ({ toolId, content, onBack, labels }) => {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBack}
+            className="logo-pill transition hover:-translate-y-0.5 active:scale-95"
+            aria-label={labels.back}
+          >
+            <div className="logo-icon">
+              <Leaf size={18} />
+            </div>
+            <span className="text-sm font-semibold">{appName}</span>
+          </button>
           <button
             type="button"
             onClick={onBack}
@@ -468,6 +535,7 @@ function App() {
   const [isRolling, setIsRolling] = useState(false);
 
   const [buyDecision, setBuyDecision] = useState(null);
+  const [isBuyThinking, setIsBuyThinking] = useState(false);
 
   const [merit, setMerit] = useState(0);
   const [fishModeIndex, setFishModeIndex] = useState(0);
@@ -489,6 +557,7 @@ function App() {
     setExcuse(t.tools.excuse.default);
     setPersona(t.tools.persona.default);
     setBuyDecision(null);
+    setIsBuyThinking(false);
     setRollingItem("");
     setDinnerResult("");
   }, [language, menuTouched, t]);
@@ -534,12 +603,19 @@ function App() {
   };
 
   const handleBuyDecision = () => {
-    const buy = Math.random() > 0.5;
-    const reasonPool = buy ? t.tools.buy.reasons.buy : t.tools.buy.reasons.hold;
-    setBuyDecision({
-      result: buy ? t.tools.buy.buy : t.tools.buy.hold,
-      reason: getRandomItem(reasonPool),
-    });
+    if (isBuyThinking) return;
+    setIsBuyThinking(true);
+    setBuyDecision(null);
+    setTimeout(() => {
+      const buy = Math.random() > 0.5;
+      const reasonPool = buy ? t.tools.buy.reasons.buy : t.tools.buy.reasons.hold;
+      setBuyDecision({
+        result: buy ? t.tools.buy.buy : t.tools.buy.hold,
+        reason: getRandomItem(reasonPool),
+        tone: buy ? "buy" : "hold",
+      });
+      setIsBuyThinking(false);
+    }, 600);
   };
 
   const handleFishTap = () => {
@@ -663,31 +739,36 @@ function App() {
     }
 
     if (activeTool === "buy") {
+      const buyTone = buyDecision?.tone;
+      const decisionColor =
+        buyTone === "buy" ? "text-emerald-500" : buyTone === "hold" ? "text-rose-500" : "";
+      const decisionIcon =
+        buyTone === "buy" ? <Smile size={38} /> : buyTone === "hold" ? <Frown size={38} /> : null;
+      const decisionText = buyDecision?.result || "?";
+      const reasonText = isBuyThinking
+        ? t.tools.buy.thinking
+        : buyDecision
+          ? buyDecision.reason
+          : t.tools.buy.hint;
       return (
-        <div className="space-y-4">
-          <div className="relative">
+        <div className="space-y-6">
+          <div className="relative text-center">
             <span className="chip tool-chip">{t.grid.label}</span>
-            <h2 className="mt-3 text-2xl font-black tracking-tighter">
-              {t.tools.buy.title}
-            </h2>
-            <p className="mt-2 text-sm text-[var(--muted)] font-serif">
-              {t.tools.buy.desc}
-            </p>
+            <h2 className="buy-title">{t.tools.buy.title}</h2>
           </div>
-          <div className="flex flex-col gap-4 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-5 md:flex-row md:items-center">
-            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-[var(--accent-soft)] text-2xl font-semibold text-[var(--accent-strong)]">
-              {buyDecision ? buyDecision.result : "?"}
+          <div className="buy-panel">
+            <div className={classNames("buy-face", decisionColor, isBuyThinking && "animate-pulse")}>
+              {decisionIcon || <span className="buy-face-placeholder">?</span>}
             </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
-                {t.tools.buy.mood}
-              </p>
-              <p className="mt-2 text-lg font-serif">
-                {buyDecision ? buyDecision.reason : t.tools.buy.hint}
-              </p>
-            </div>
+            <p className={classNames("buy-decision", decisionColor)}>{decisionText}</p>
+            <p className="buy-reason">“{reasonText}”</p>
           </div>
-          <button type="button" className="btn-primary active:scale-95" onClick={handleBuyDecision}>
+          <button
+            type="button"
+            className="btn-primary buy-cta active:scale-95"
+            onClick={handleBuyDecision}
+            disabled={isBuyThinking}
+          >
             {t.tools.buy.cta}
           </button>
         </div>
@@ -934,6 +1015,22 @@ function App() {
               );
             })}
           </div>
+
+          <footer className="mt-20 text-center text-stone-300 text-sm font-medium italic">
+            就这样吧，挺好的。
+            <div className="mt-3 flex flex-col items-center gap-2 text-xs font-medium not-italic text-stone-300">
+              <span>©️念安@2026</span>
+              <a
+                href="https://github.com/dandan1232"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-stone-400 transition hover:text-stone-500"
+              >
+                与我联系
+                <Github size={14} />
+              </a>
+            </div>
+          </footer>
         </section>
       </div>
 
@@ -942,6 +1039,7 @@ function App() {
         content={toolContent}
         onBack={handleCloseTool}
         labels={t.common}
+        appName={t.appName}
       />
     </div>
   );
