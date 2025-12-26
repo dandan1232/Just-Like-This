@@ -212,48 +212,48 @@ const TOOL_CARDS = [
     icon: Utensils,
     glow: "rgba(255, 214, 187, 0.75)",
     glow2: "rgba(255, 244, 232, 0.9)",
-    iconBg: "rgba(255, 214, 187, 0.6)",
-    iconInk: "#c46a3d",
+    iconBg: "rgba(237, 178, 140, 0.9)",
+    iconInk: "#b2522c",
   },
   {
     id: "buy",
     icon: ShoppingBag,
     glow: "rgba(212, 229, 255, 0.75)",
     glow2: "rgba(236, 244, 255, 0.9)",
-    iconBg: "rgba(212, 229, 255, 0.6)",
-    iconInk: "#4c6fa5",
+    iconBg: "rgba(170, 203, 245, 0.9)",
+    iconInk: "#355b93",
   },
   {
     id: "fish",
     icon: Bell,
     glow: "rgba(255, 236, 201, 0.75)",
     glow2: "rgba(255, 249, 236, 0.9)",
-    iconBg: "rgba(255, 236, 201, 0.6)",
-    iconInk: "#c28b2d",
+    iconBg: "rgba(250, 210, 146, 0.9)",
+    iconInk: "#a36f14",
   },
   {
     id: "excuse",
     icon: MessageCircle,
     glow: "rgba(200, 236, 248, 0.75)",
     glow2: "rgba(232, 248, 255, 0.9)",
-    iconBg: "rgba(200, 236, 248, 0.6)",
-    iconInk: "#3f7e9a",
+    iconBg: "rgba(158, 216, 238, 0.9)",
+    iconInk: "#2f6e86",
   },
   {
     id: "persona",
     icon: BadgeCheck,
     glow: "rgba(236, 214, 242, 0.75)",
     glow2: "rgba(246, 236, 250, 0.9)",
-    iconBg: "rgba(236, 214, 242, 0.6)",
-    iconInk: "#7a4c92",
+    iconBg: "rgba(206, 174, 224, 0.9)",
+    iconInk: "#6a3b86",
   },
   {
     id: "coming",
     icon: Grid2X2,
     glow: "rgba(230, 230, 230, 0.7)",
     glow2: "rgba(245, 245, 245, 0.9)",
-    iconBg: "rgba(226, 226, 226, 0.6)",
-    iconInk: "#8c8c8c",
+    iconBg: "rgba(210, 210, 210, 0.9)",
+    iconInk: "#7b7b7b",
   },
 ];
 
@@ -683,7 +683,7 @@ function App() {
             </p>
           </div>
 
-          <div className="mt-12 grid auto-rows-[170px] gap-6 sm:grid-cols-2 md:auto-rows-[190px] lg:grid-cols-3">
+          <div className="mt-12 grid auto-rows-[230px] gap-6 sm:grid-cols-2 md:auto-rows-[255px] lg:grid-cols-3">
             {TOOL_CARDS.map((tool, index) => {
               const content =
                 tool.id === "coming"
@@ -696,7 +696,7 @@ function App() {
                   type="button"
                   onClick={() => handleOpenTool(tool.id)}
                   className={classNames(
-                    "tool-card group flex h-full flex-col justify-between overflow-hidden p-6 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 active:scale-[0.98]",
+                    "tool-card group flex h-full flex-col justify-between overflow-hidden p-7 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.98]",
                     tool.id === "coming" && "cursor-not-allowed opacity-70"
                   )}
                   style={{
@@ -711,9 +711,14 @@ function App() {
                     <div className="tool-icon flex h-11 w-11 items-center justify-center rounded-2xl transition group-hover:scale-105">
                       <Icon size={20} />
                     </div>
+                    <div className="tool-arrow text-[var(--muted)]">
+                      <span role="img" aria-label="go">
+                        ➔
+                      </span>
+                    </div>
                   </div>
-                  <div className="mt-6 space-y-2">
-                    <h3 className="text-xl font-black tracking-tight">{content.title}</h3>
+                  <div className="tool-text mt-6 space-y-2">
+                    <h3 className="text-2xl font-black tracking-tight">{content.title}</h3>
                     <p className="text-sm text-[var(--muted)]">{content.desc}</p>
                   </div>
                 </button>
