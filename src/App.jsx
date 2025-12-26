@@ -1016,10 +1016,10 @@ function App() {
             })}
           </div>
 
-          <footer className="mt-20 text-center text-stone-300 text-sm font-medium italic">
-            就这样吧，挺好的。
-            <div className="mt-3 flex flex-col items-center gap-2 text-xs font-medium not-italic text-stone-300">
-              <span>©️念安@2026</span>
+          <footer className="mt-20 text-center text-stone-400 text-[18px] font-medium italic">
+            "就这样吧，挺好的。"
+            <div className="mt-4 flex items-center justify-center gap-3 text-xs font-medium not-italic text-stone-360">
+              <span>©念安-2026.01</span>
               <a
                 href="https://github.com/dandan1232"
                 target="_blank"
