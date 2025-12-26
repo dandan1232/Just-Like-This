@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   BadgeCheck,
   Bell,
+  Brain,
   Grid2X2,
   Leaf,
   MessageCircle,
   Palette,
   Plus,
+  Sparkles,
   Settings,
   ShoppingBag,
   Utensils,
@@ -41,14 +43,177 @@ const TRANSLATIONS = {
       dinner: {
         title: "晚饭吃什么",
         desc: "帮你人类选择困难。",
-        cta: "抽一次",
+        cta: "帮我选！",
         add: "加入菜单",
-        placeholder: "添加菜单，比如：番茄炒蛋",
+        placeholder: "加个想吃的...",
         resultLabel: "今日答案",
-        rolling: "摇晃中",
+        rolling: "神灵感应中...",
         empty: "菜单空空",
-        tips: "点击标签移除，保持轻量。",
-        defaultMenu: ["家常面", "牛肉饭", "砂锅粥", "清炒时蔬", "小火锅", "寿司卷"],
+        poolLabel: "MENU POOL",
+        reset: "Reset",
+        defaultMenu: [
+          "家常面",
+          "牛肉饭",
+          "清炒时蔬",
+          "家常炒饭",
+          "番茄鸡蛋面",
+          "鸡蛋炒饭",
+          "牛肉面",
+          "炸酱面",
+          "葱油拌面",
+          "热干面",
+          "凉皮",
+          "刀削面",
+          "米线",
+          "螺蛳粉",
+          "桂林米粉",
+          "酸辣粉",
+          "重庆小面",
+          "担担面",
+          "兰州拉面",
+          "红烧牛肉面",
+          "咖喱牛肉饭",
+          "宫保鸡丁盖饭",
+          "鱼香肉丝盖饭",
+          "回锅肉盖饭",
+          "卤肉饭",
+          "肥牛饭",
+          "椒盐鸡腿饭",
+          "鸡排饭",
+          "照烧鸡腿饭",
+          "黑椒牛柳饭",
+          "土豆烧牛肉",
+          "土豆炖排骨",
+          "海带炖排骨",
+          "红烧排骨",
+          "可乐鸡翅",
+          "糖醋排骨",
+          "糖醋里脊",
+          "糖醋鱼",
+          "红烧狮子头",
+          "粉蒸肉",
+          "梅菜扣肉",
+          "香菇滑鸡",
+          "清蒸鲈鱼",
+          "清蒸鲳鱼",
+          "酸菜鱼",
+          "水煮鱼",
+          "麻辣香锅",
+          "香辣虾",
+          "香辣蟹",
+          "干锅花菜",
+          "干锅牛蛙",
+          "干锅鸭头",
+          "烤鱼",
+          "烤串拼盘",
+          "烧烤小摊",
+          "生煎包",
+          "锅贴",
+          "煎饺",
+          "韭菜盒子",
+          "鸡蛋灌饼",
+          "肉夹馍",
+          "凉拌木耳",
+          "凉拌黄瓜",
+          "拍黄瓜",
+          "凉拌粉丝",
+          "炒青菜",
+          "蒜蓉生菜",
+          "蒜蓉西兰花",
+          "蚝油生菜",
+          "炒空心菜",
+          "番茄炒蛋",
+          "土豆丝炒青椒",
+          "鱼香茄子",
+          "地三鲜",
+          "红烧茄子",
+          "茄汁大虾",
+          "番茄牛腩",
+          "番茄豆腐煲",
+          "豆腐炖蘑菇",
+          "麻婆豆腐",
+          "家常豆腐",
+          "铁板豆腐",
+          "麻辣烫",
+          "关东煮",
+          "冒菜",
+          "砂锅粉丝煲",
+          "砂锅豆腐煲",
+          "小火锅",
+          "清汤火锅",
+          "鸳鸯火锅",
+          "重庆火锅",
+          "串串香",
+          "寿司卷",
+          "三文鱼寿司",
+          "鳗鱼寿司",
+          "亲子丼",
+          "牛丼",
+          "日式咖喱饭",
+          "乌冬面",
+          "味噌汤",
+          "汉堡薯条",
+          "炸鸡套餐",
+          "披萨",
+          "意大利面",
+          "奶油蘑菇意面",
+          "培根番茄意面",
+          "焗饭",
+          "焗土豆泥",
+          "三明治",
+          "培根煎蛋吐司",
+          "鸡蛋沙拉",
+          "凯撒沙拉",
+          "水果沙拉",
+          "牛肉沙拉",
+          "烤鸡沙拉",
+          "牛奶麦片",
+          "粥加小菜",
+          "皮蛋瘦肉粥",
+          "生滚牛肉粥",
+          "虾仁粥",
+          "小米粥",
+          "红枣银耳汤",
+          "南瓜粥",
+          "玉米排骨汤",
+          "冬瓜排骨汤",
+          "紫菜蛋花汤",
+          "西红柿蛋汤",
+          "蘑菇汤",
+          "酸辣汤",
+          "馄饨",
+          "饺子",
+          "牛肉粉丝汤",
+          "羊肉汤",
+          "牛杂粉",
+          "叉烧饭",
+          "广式烧鸭饭",
+          "港式烧腊拼饭",
+          "海南鸡饭",
+          "砂锅粥",
+          "煲仔饭",
+          "腊味煲仔饭",
+          "豆腐脑",
+          "油泼面",
+          "西安肉夹馍套餐",
+          "煎牛排",
+          "煎三文鱼",
+          "黄焖鸡米饭",
+          "砂锅土豆粉",
+          "烤冷面",
+          "铁板鱿鱼",
+          "葱爆羊肉",
+          "葱爆牛肉",
+          "韭黄炒蛋",
+          "韭菜炒肉",
+          "辣子鸡",
+          "辣炒年糕",
+          "韩国拌饭",
+          "石锅拌饭",
+          "泡菜锅",
+          "泡菜炒饭",
+          "炒年糕",
+        ],
       },
       buy: {
         title: "买不买",
@@ -136,13 +301,15 @@ const TRANSLATIONS = {
       dinner: {
         title: "Dinner Decider",
         desc: "A little randomness, less anxiety.",
-        cta: "Spin once",
+        cta: "Pick for me!",
         add: "Add",
-        placeholder: "Add menu, e.g. tomato egg",
+        placeholder: "Add something you crave...",
         resultLabel: "Tonight",
-        rolling: "Spinning",
+        rolling: "Thinking",
         empty: "Menu empty",
         tips: "Tip: remove tags to keep it light.",
+        poolLabel: "MENU POOL",
+        reset: "Reset",
         defaultMenu: ["Noodles", "Beef bowl", "Porridge", "Greens", "Hot pot", "Sushi"],
       },
       buy: {
@@ -268,7 +435,7 @@ const ToolContainer = ({ toolId, content, onBack, labels }) => {
       onClick={onBack}
     >
       <div
-        className="card w-full max-w-4xl p-6 md:p-8 animate-fadeUp"
+        className="card w-full max-w-4xl p-6 md:p-8 animate-fadeUp max-h-[90vh] overflow-hidden"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -280,7 +447,7 @@ const ToolContainer = ({ toolId, content, onBack, labels }) => {
             ← {labels.back}
           </button>
         </div>
-        <div className="mt-6">{content}</div>
+        <div className="mt-6 max-h-[70vh] overflow-y-auto pr-1">{content}</div>
       </div>
     </div>
   );
@@ -347,20 +514,23 @@ function App() {
     setIsRolling(true);
     setDinnerResult("");
     let ticks = 0;
+    const tickLimit = 15;
     const interval = setInterval(() => {
-      setRollingItem(getRandomItem(menuItems));
+      const pick = getRandomItem(menuItems);
+      setRollingItem(pick);
       ticks += 1;
-      if (ticks > 8) {
+      if (ticks >= tickLimit) {
         clearInterval(interval);
+        setDinnerResult(pick);
+        setIsRolling(false);
       }
-    }, 90);
+    }, 80);
+  };
 
-    setTimeout(() => {
-      const finalPick = getRandomItem(menuItems);
-      setRollingItem(finalPick);
-      setDinnerResult(finalPick);
-      setIsRolling(false);
-    }, 900);
+  const handleMenuReset = () => {
+    setMenuItems(t.tools.dinner.defaultMenu);
+    setMenuInput("");
+    setMenuTouched(false);
   };
 
   const handleBuyDecision = () => {
@@ -390,65 +560,104 @@ function App() {
     if (!activeTool) return null;
 
     if (activeTool === "dinner") {
+      const hasMenu = menuItems.length > 0;
+      const isIdle = !dinnerResult && !rollingItem;
+      const displayText = hasMenu
+        ? dinnerResult || rollingItem || "?"
+        : t.tools.dinner.empty;
       return (
-        <div className="space-y-4">
-          <div>
-            <span className="chip">{t.grid.label}</span>
-            <h2 className="mt-3 text-2xl font-black tracking-tighter">
+        <div className="space-y-6 md:space-y-8">
+          <div className="relative text-center">
+            <span className="chip tool-chip">{t.grid.label}</span>
+            <h2 className="mt-3 text-2xl font-black tracking-tighter md:text-3xl">
               {t.tools.dinner.title}
             </h2>
             <p className="mt-2 text-sm text-[var(--muted)] font-serif">
               {t.tools.dinner.desc}
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {menuItems.map((item) => (
-              <span key={item} className="pill">
-                {item}
-                <button
-                  type="button"
-                  onClick={() => handleRemoveMenu(item)}
-                  className="rounded-full p-1 text-[var(--muted)] transition hover:text-[var(--accent-strong)] active:scale-95"
+          <div className="flex flex-col items-center gap-5">
+            <div className={classNames("dinner-note-wrap", isRolling && "is-rolling")}>
+              <div className={classNames("dinner-note-base", isRolling && "animate-pulse")} />
+              <div className="dinner-note-card">
+                <p
+                  className={classNames(
+                    "dinner-note-text",
+                    isRolling && "blur-[2px]",
+                    isIdle && "text-[var(--muted-strong)]"
+                  )}
                 >
-                  <X size={12} />
-                </button>
-              </span>
-            ))}
+                  {displayText}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="btn-primary active:scale-95"
+              onClick={handleDinnerSpin}
+              disabled={isRolling || menuItems.length === 0}
+            >
+              {isRolling ? (
+                <>
+                  <Brain size={16} className="animate-spin" />
+                  {t.tools.dinner.rolling}
+                </>
+              ) : (
+                <>
+                  <Sparkles size={16} />
+                  {t.tools.dinner.cta}
+                </>
+              )}
+            </button>
           </div>
-          <div className="flex flex-col gap-3 md:flex-row md:items-center">
-            <input
-              className="field flex-1"
-              value={menuInput}
-              onChange={(event) => setMenuInput(event.target.value)}
-              placeholder={t.tools.dinner.placeholder}
-            />
-            <div className="flex gap-2">
-              <button type="button" className="btn-ghost active:scale-95" onClick={handleAddMenu}>
-                <Plus size={16} />
-                {t.tools.dinner.add}
-              </button>
+          <div className="menu-pool">
+            <div className="menu-pool-head">
+              <span className="menu-pool-title">{t.tools.dinner.poolLabel}</span>
               <button
                 type="button"
-                className="btn-primary active:scale-95"
-                onClick={handleDinnerSpin}
-                disabled={isRolling || menuItems.length === 0}
+                className="menu-reset"
+                onClick={handleMenuReset}
+                disabled={!menuItems.length}
               >
-                {isRolling ? t.tools.dinner.rolling : t.tools.dinner.cta}
+                {t.tools.dinner.reset}
               </button>
             </div>
-          </div>
-          <div className="flex items-center justify-between rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-5">
-            <div>
-              <p className="text-xs text-[var(--muted)]">{t.tools.dinner.resultLabel}</p>
-              <p className="text-2xl font-semibold">
-                {dinnerResult || rollingItem || t.tools.dinner.empty}
-              </p>
+            <div className="menu-pool-list">
+              {menuItems.length ? (
+                menuItems.map((item) => (
+                  <span key={item} className="pill">
+                    {item}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveMenu(item)}
+                      className="rounded-full p-1 text-[var(--muted)] transition hover:text-[var(--accent-strong)] active:scale-95"
+                    >
+                      <X size={12} />
+                    </button>
+                  </span>
+                ))
+              ) : (
+                <p className="text-xs text-[var(--muted)]">{t.tools.dinner.empty}</p>
+              )}
             </div>
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent-soft)] text-2xl">
-              🍜
+            <div className="menu-pool-input">
+              <input
+                className="menu-field"
+                value={menuInput}
+                onChange={(event) => setMenuInput(event.target.value)}
+                placeholder={t.tools.dinner.placeholder}
+              />
+              <button
+                type="button"
+                className="menu-add-btn"
+                onClick={handleAddMenu}
+                aria-label={t.tools.dinner.add}
+              >
+                <Plus size={16} />
+              </button>
             </div>
+            <p className="menu-tip">{t.tools.dinner.tips}</p>
           </div>
-          <p className="text-xs text-[var(--muted)] font-serif">{t.tools.dinner.tips}</p>
         </div>
       );
     }
@@ -456,8 +665,8 @@ function App() {
     if (activeTool === "buy") {
       return (
         <div className="space-y-4">
-          <div>
-            <span className="chip">{t.grid.label}</span>
+          <div className="relative">
+            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.buy.title}
             </h2>
@@ -488,8 +697,8 @@ function App() {
     if (activeTool === "fish") {
       return (
         <div className="space-y-4">
-          <div>
-            <span className="chip">{t.grid.label}</span>
+          <div className="relative">
+            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.fish.title}
             </h2>
@@ -550,8 +759,8 @@ function App() {
     if (activeTool === "excuse") {
       return (
         <div className="space-y-4">
-          <div>
-            <span className="chip">{t.grid.label}</span>
+          <div className="relative">
+            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.excuse.title}
             </h2>
@@ -572,8 +781,8 @@ function App() {
     if (activeTool === "persona") {
       return (
         <div className="space-y-4">
-          <div>
-            <span className="chip">{t.grid.label}</span>
+          <div className="relative">
+            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.persona.title}
             </h2>
