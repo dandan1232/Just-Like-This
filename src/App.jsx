@@ -975,14 +975,16 @@ function App() {
             <p className={classNames("buy-decision", decisionColor)}>{decisionText}</p>
             <p className="buy-reason">“{reasonText}”</p>
           </div>
-          <button
-            type="button"
-            className="btn-primary buy-cta active:scale-95"
-            onClick={handleBuyDecision}
-            disabled={isBuyThinking}
-          >
-            {t.tools.buy.cta}
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="btn-primary buy-cta active:scale-95"
+              onClick={handleBuyDecision}
+              disabled={isBuyThinking}
+            >
+              {t.tools.buy.cta}
+            </button>
+          </div>
         </div>
       );
     }
