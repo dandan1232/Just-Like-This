@@ -42,6 +42,6 @@ npm run dev
 ```
 
 ## 截图
-
+![alt text](image.png)
 > 在赶工...
 
