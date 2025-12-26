@@ -43,7 +43,7 @@ const TRANSLATIONS = {
       close: "关闭",
     },
     footer: {
-      tagline: "就这样吧，挺好的。",
+      tagline: "\"就这样吧，挺好的。\"",
       copyright: "©念安-2026.01",
       contact: "与我联系",
     },
@@ -359,7 +359,7 @@ const TRANSLATIONS = {
       close: "Close",
     },
     footer: {
-      tagline: "Just like this, it's fine.",
+      tagline: "\"Just like this, it's fine.\"",
       copyright: "©Nianan-2026.01",
       contact: "Contact me",
     },
@@ -858,7 +858,6 @@ function App() {
       return (
         <div className="space-y-6 md:space-y-8">
           <div className="relative text-center">
-            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter md:text-3xl">
               {t.tools.dinner.title}
             </h2>
@@ -967,7 +966,6 @@ function App() {
       return (
         <div className="space-y-6">
           <div className="relative text-center">
-            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="buy-title">{t.tools.buy.title}</h2>
           </div>
           <div className="buy-panel">
@@ -993,7 +991,6 @@ function App() {
       return (
         <div className="space-y-4">
           <div className="relative">
-            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.fish.title}
             </h2>
@@ -1055,7 +1052,6 @@ function App() {
       return (
         <div className="space-y-4">
           <div className="relative">
-            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.excuse.title}
             </h2>
@@ -1077,7 +1073,6 @@ function App() {
       return (
         <div className="space-y-4">
           <div className="relative">
-            <span className="chip tool-chip">{t.grid.label}</span>
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.persona.title}
             </h2>
@@ -1138,16 +1133,16 @@ function App() {
       <button
         type="button"
         onClick={handleCloseTool}
-        className="group fixed left-6 top-6 z-50 flex items-center gap-2 rounded-full border border-stone-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-xl"
+        className="group fixed left-6 top-6 z-50 flex items-center gap-3 rounded-full border border-stone-200 bg-white/80 px-4 py-2.5 shadow-sm backdrop-blur-xl"
         aria-label={t.appName}
       >
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70">
+        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/70">
           <Leaf
-            size={18}
+            size={22}
             className="text-stone-700 transition-transform duration-200 group-hover:rotate-12"
           />
         </span>
-        <span className="text-sm font-semibold text-stone-700">{t.appName}</span>
+        <span className="text-base font-semibold text-stone-700">{t.appName}</span>
       </button>
 
       <div
