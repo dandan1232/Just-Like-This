@@ -2358,11 +2358,13 @@ function App() {
                     <div className="tool-icon flex h-11 w-11 items-center justify-center rounded-2xl transition group-hover:scale-105">
                       <Icon size={20} />
                     </div>
-                    <div className="tool-arrow text-[var(--muted)]">
-                      <span role="img" aria-label="go">
-                        ➔
-                      </span>
-                    </div>
+                    {tool.id !== "coming" && (
+                      <div className="tool-arrow text-[var(--muted)]">
+                        <span role="img" aria-label="go">
+                          ➔
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="tool-text mt-6 space-y-2">
                     <h3 className="text-2xl font-black tracking-tight">{content.title}</h3>
