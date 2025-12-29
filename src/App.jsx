@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BadgeCheck,
   Bell,
   Brain,
+  Check,
   CloudSun,
+  Copy,
   Frown,
   Github,
   Grid2X2,
@@ -306,7 +308,7 @@ const TRANSLATIONS = {
       },
       fish: {
         title: "敲木鱼",
-        desc: "心诚则灵，Bug 退散。",
+        desc: "心诚则灵，Bug 退散",
         cta: "敲一下",
         modes: ["Bug 退散", "需求不改", "会议收敛", "灵感涌现"],
         responses: ["功德 +1", "已静音尘世", "Bug 已远离", "呼吸变稳了"],
@@ -382,7 +384,7 @@ const TRANSLATIONS = {
       },
       outfit: {
         title: "今日穿搭",
-        desc: "看天气来点不费脑的穿搭建议。",
+        desc: "看天气来点不费脑的穿搭建议",
         location: {
           title: "定位与天气",
           use: "获取当前位置",
@@ -446,9 +448,11 @@ const TRANSLATIONS = {
         },
       },
       excuse: {
-        title: "摸鱼借口",
-        desc: "优雅地逃离现场。",
+        title: "逃离借口",
+        desc: "优雅地逃离现场",
         cta: "生成借口",
+        copy: "复制",
+        copied: "已复制",
         default: "点击生成一条合理又不完全合理的理由。",
         pool: [
           "网络突然变慢，我去确认路由器情绪。",
@@ -899,6 +903,8 @@ const TRANSLATIONS = {
         title: "Perfect Excuse",
         desc: "Absurd yet coherent. Pressure down.",
         cta: "Generate",
+        copy: "Copy",
+        copied: "Copied",
         default: "Click to generate a believable excuse.",
         pool: [
           "Network slowed down. Checking the router mood.",
@@ -1286,6 +1292,8 @@ function App() {
   const [fortuneSeed, setFortuneSeed] = useState(0);
 
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
+  const [isExcuseRolling, setIsExcuseRolling] = useState(false);
+  const [excuseCopied, setExcuseCopied] = useState(false);
   const [persona, setPersona] = useState(t.tools.persona.default);
   const [outfitGender, setOutfitGender] = useState("female");
   const [outfitStyle, setOutfitStyle] = useState("commute");
@@ -1294,6 +1302,9 @@ function App() {
   const [outfitLocation, setOutfitLocation] = useState(null);
   const [outfitWeather, setOutfitWeather] = useState(null);
   const [outfitCityQuery, setOutfitCityQuery] = useState("");
+
+  const excuseIntervalRef = useRef(null);
+  const excuseCopyTimeoutRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -1304,13 +1315,34 @@ function App() {
     if (!menuTouched) {
       setMenuItems(t.tools.dinner.defaultMenu);
     }
+    if (excuseIntervalRef.current) {
+      clearInterval(excuseIntervalRef.current);
+      excuseIntervalRef.current = null;
+    }
+    if (excuseCopyTimeoutRef.current) {
+      clearTimeout(excuseCopyTimeoutRef.current);
+      excuseCopyTimeoutRef.current = null;
+    }
     setExcuse(t.tools.excuse.default);
+    setIsExcuseRolling(false);
+    setExcuseCopied(false);
     setPersona(t.tools.persona.default);
     setBuyDecision(null);
     setIsBuyThinking(false);
     setRollingItem("");
     setDinnerResult("");
   }, [language, menuTouched, t]);
+
+  useEffect(() => {
+    return () => {
+      if (excuseIntervalRef.current) {
+        clearInterval(excuseIntervalRef.current);
+      }
+      if (excuseCopyTimeoutRef.current) {
+        clearTimeout(excuseCopyTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (activeTool === "fortune") {
@@ -1393,7 +1425,54 @@ function App() {
   };
 
   const handleExcuse = () => {
-    setExcuse(getRandomItem(t.tools.excuse.pool));
+    if (isExcuseRolling) return;
+    if (excuseIntervalRef.current) {
+      clearInterval(excuseIntervalRef.current);
+    }
+    if (excuseCopyTimeoutRef.current) {
+      clearTimeout(excuseCopyTimeoutRef.current);
+    }
+    setExcuseCopied(false);
+    setExcuse(null);
+    setIsExcuseRolling(true);
+    let count = 0;
+    const interval = setInterval(() => {
+      setExcuse(getRandomItem(t.tools.excuse.pool));
+      count += 1;
+      if (count > 8) {
+        clearInterval(interval);
+        excuseIntervalRef.current = null;
+        setIsExcuseRolling(false);
+      }
+    }, 50);
+    excuseIntervalRef.current = interval;
+  };
+
+  const handleCopyExcuse = async () => {
+    if (!excuse || isExcuseRolling) return;
+    if (excuseCopyTimeoutRef.current) {
+      clearTimeout(excuseCopyTimeoutRef.current);
+    }
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(excuse);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = excuse;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      setExcuseCopied(true);
+      excuseCopyTimeoutRef.current = setTimeout(() => {
+        setExcuseCopied(false);
+      }, 2000);
+    } catch (error) {
+      setExcuseCopied(false);
+    }
   };
 
   const handlePersona = () => {
@@ -2001,9 +2080,11 @@ function App() {
     }
 
     if (activeTool === "excuse") {
+      const excuseText =
+        excuse ?? (isExcuseRolling ? "" : t.tools.excuse.default);
       return (
         <div className="space-y-4">
-          <div className="relative">
+          <div className="relative text-center">
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.excuse.title}
             </h2>
@@ -2011,12 +2092,41 @@ function App() {
               {t.tools.excuse.desc}
             </p>
           </div>
-          <div className="excuse-card text-lg font-serif">
-            <p className="relative z-10">{excuse}</p>
+          <div className="excuse-wrap">
+            <div className="excuse-card text-lg font-serif">
+              <div className="excuse-body">
+                <p
+                  className={classNames(
+                    "excuse-text",
+                    isExcuseRolling && "is-rolling"
+                  )}
+                >
+                  {excuseText}
+                </p>
+              </div>
+              <button
+                type="button"
+                className={classNames(
+                  "excuse-copy",
+                  excuseCopied && "is-copied"
+                )}
+                onClick={handleCopyExcuse}
+                disabled={!excuse || isExcuseRolling}
+                aria-label={excuseCopied ? t.tools.excuse.copied : t.tools.excuse.copy}
+              >
+                {excuseCopied ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
           </div>
-          <button type="button" className="btn-primary active:scale-95" onClick={handleExcuse}>
-            {t.tools.excuse.cta}
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="btn-primary active:scale-95"
+              onClick={handleExcuse}
+            >
+              {t.tools.excuse.cta}
+            </button>
+          </div>
         </div>
       );
     }
@@ -2051,6 +2161,8 @@ function App() {
     buyDecision,
     dinnerResult,
     excuse,
+    excuseCopied,
+    isExcuseRolling,
     fortune,
     fortuneSeed,
     fishModeIndex,
