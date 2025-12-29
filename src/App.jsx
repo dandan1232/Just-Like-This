@@ -10,6 +10,7 @@ import {
   Leaf,
   MapPin,
   MessageCircle,
+  MoonStar,
   Palette,
   Plus,
   Search,
@@ -310,6 +311,74 @@ const TRANSLATIONS = {
         modes: ["Bug 退散", "需求不改", "会议收敛", "灵感涌现"],
         responses: ["功德 +1", "已静音尘世", "Bug 已远离", "呼吸变稳了"],
         counterLabel: "今日功德",
+      },
+      fortune: {
+        title: "今日运势",
+        desc: "温柔治愈版小预测",
+        cta: "再测一次",
+        loading: "正在占卜今日能量…",
+        fields: {
+          energy: "能量",
+          luckyColor: "幸运色",
+          luckyItem: "幸运单品",
+          keyword: "关键词",
+        },
+        pool: [
+          {
+            title: "轻盈回弹",
+            keyword: "节奏放慢",
+            energy: "72%",
+            luckyColor: "奶油白",
+            colorHex: "#f3ede4",
+            luckyItem: "薄针织",
+            note: "不用追进度，先完成一个小目标就够了。",
+          },
+          {
+            title: "小幸运靠近",
+            keyword: "期待感上升",
+            energy: "81%",
+            luckyColor: "杏子黄",
+            colorHex: "#f2d58d",
+            luckyItem: "帆布鞋",
+            note: "今天适合先做喜欢的事，顺手解决难题。",
+          },
+          {
+            title: "安稳蓄力",
+            keyword: "慢慢积累",
+            energy: "66%",
+            luckyColor: "雾蓝",
+            colorHex: "#b7c8d4",
+            luckyItem: "衬衫",
+            note: "别急着比较，你的节奏刚刚好。",
+          },
+          {
+            title: "柔和上扬",
+            keyword: "情绪回温",
+            energy: "78%",
+            luckyColor: "珊瑚粉",
+            colorHex: "#f2b5aa",
+            luckyItem: "针织开衫",
+            note: "把心力放回自己，今天会更有底气。",
+          },
+          {
+            title: "专注小宇宙",
+            keyword: "效率在线",
+            energy: "84%",
+            luckyColor: "奶茶棕",
+            colorHex: "#c8a489",
+            luckyItem: "皮质小包",
+            note: "专注 40 分钟，奖励自己一段放空。",
+          },
+          {
+            title: "温柔守护",
+            keyword: "心思细腻",
+            energy: "70%",
+            luckyColor: "薄荷绿",
+            colorHex: "#bfe4d0",
+            luckyItem: "轻薄风衣",
+            note: "注意照顾好自己，才有余力照顾别人。",
+          },
+        ],
       },
       outfit: {
         title: "今日穿搭",
@@ -693,6 +762,74 @@ const TRANSLATIONS = {
         responses: ["Merit +1", "Noise muted", "Bug left", "Breath steadier"],
         counterLabel: "Merit today",
       },
+      fortune: {
+        title: "Daily Fortune",
+        desc: "A gentle, healing mini forecast.",
+        cta: "Refresh",
+        loading: "Tuning into your energy…",
+        fields: {
+          energy: "Energy",
+          luckyColor: "Lucky color",
+          luckyItem: "Lucky pick",
+          keyword: "Keyword",
+        },
+        pool: [
+          {
+            title: "Soft Bounce Back",
+            keyword: "Slow tempo",
+            energy: "72%",
+            luckyColor: "Cream white",
+            colorHex: "#f3ede4",
+            luckyItem: "Light knit",
+            note: "One small win is enough to keep you steady.",
+          },
+          {
+            title: "Tiny Luck Nearby",
+            keyword: "Hope rising",
+            energy: "81%",
+            luckyColor: "Apricot",
+            colorHex: "#f2d58d",
+            luckyItem: "Canvas sneakers",
+            note: "Start with what you like. Momentum follows.",
+          },
+          {
+            title: "Quiet Momentum",
+            keyword: "Steady build",
+            energy: "66%",
+            luckyColor: "Mist blue",
+            colorHex: "#b7c8d4",
+            luckyItem: "Crisp shirt",
+            note: "Your pace is the right pace today.",
+          },
+          {
+            title: "Gentle Lift",
+            keyword: "Mood warming",
+            energy: "78%",
+            luckyColor: "Coral pink",
+            colorHex: "#f2b5aa",
+            luckyItem: "Knit cardigan",
+            note: "Give yourself the care you give others.",
+          },
+          {
+            title: "Focus Bubble",
+            keyword: "Flow state",
+            energy: "84%",
+            luckyColor: "Latte brown",
+            colorHex: "#c8a489",
+            luckyItem: "Leather mini bag",
+            note: "Do 40 minutes of focus, then reset.",
+          },
+          {
+            title: "Soft Guard",
+            keyword: "Gentle heart",
+            energy: "70%",
+            luckyColor: "Mint green",
+            colorHex: "#bfe4d0",
+            luckyItem: "Light trench",
+            note: "Protect your energy and it will protect you.",
+          },
+        ],
+      },
       outfit: {
         title: "Outfit Today",
         desc: "Weather-aware outfit ideas with zero brainpower.",
@@ -812,6 +949,14 @@ const TOOL_CARDS = [
     glow2: "rgba(255, 249, 236, 0.9)",
     iconBg: "rgba(250, 210, 146, 0.9)",
     iconInk: "#a36f14",
+  },
+  {
+    id: "fortune",
+    icon: MoonStar,
+    glow: "rgba(255, 233, 196, 0.75)",
+    glow2: "rgba(255, 246, 224, 0.9)",
+    iconBg: "rgba(245, 211, 151, 0.9)",
+    iconInk: "#9a6b1c",
   },
   {
     id: "outfit",
@@ -1137,6 +1282,9 @@ function App() {
   const [fishModeIndex, setFishModeIndex] = useState(0);
   const [fishPops, setFishPops] = useState([]);
 
+  const [fortune, setFortune] = useState(null);
+  const [fortuneSeed, setFortuneSeed] = useState(0);
+
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
   const [persona, setPersona] = useState(t.tools.persona.default);
   const [outfitGender, setOutfitGender] = useState("female");
@@ -1163,6 +1311,15 @@ function App() {
     setRollingItem("");
     setDinnerResult("");
   }, [language, menuTouched, t]);
+
+  useEffect(() => {
+    if (activeTool === "fortune") {
+      setFortune(getRandomItem(t.tools.fortune.pool));
+      setFortuneSeed((prev) => prev + 1);
+    } else {
+      setFortune(null);
+    }
+  }, [activeTool, t]);
 
   const handleAddMenu = () => {
     const items = menuInput
@@ -1562,6 +1719,57 @@ function App() {
       );
     }
 
+    if (activeTool === "fortune") {
+      return (
+        <div className="space-y-5">
+          <div className="relative text-center">
+            <h2 className="mt-3 text-2xl font-black tracking-tighter">
+              {t.tools.fortune.title}
+            </h2>
+            <p className="mt-2 text-sm text-[var(--muted)] font-serif">
+              {t.tools.fortune.desc}
+            </p>
+          </div>
+          <div className="fortune-stage">
+            {fortune ? (
+              <div key={fortuneSeed} className="fortune-card animate-popIn">
+                <div className="fortune-top">
+                  <span className="chip">{t.tools.fortune.fields.keyword}</span>
+                  <span className="fortune-keyword">{fortune.keyword}</span>
+                </div>
+                <h3 className="fortune-title">{fortune.title}</h3>
+                <p className="fortune-note">{fortune.note}</p>
+                <div className="fortune-grid">
+                  <div className="fortune-item">
+                    <span className="fortune-label">{t.tools.fortune.fields.energy}</span>
+                    <span className="fortune-value">{fortune.energy}</span>
+                  </div>
+                  <div className="fortune-item">
+                    <span className="fortune-label">{t.tools.fortune.fields.luckyColor}</span>
+                    <span className="fortune-value">
+                      <span
+                        className="fortune-swatch"
+                        style={{ "--swatch": fortune.colorHex }}
+                      />
+                      {fortune.luckyColor}
+                    </span>
+                  </div>
+                  <div className="fortune-item">
+                    <span className="fortune-label">{t.tools.fortune.fields.luckyItem}</span>
+                    <span className="fortune-value">{fortune.luckyItem}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="fortune-card">
+                <p className="text-sm text-[var(--muted)]">{t.tools.fortune.loading}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
     if (activeTool === "outfit") {
       const weatherKey = outfitWeather ? getWeatherKey(outfitWeather.weathercode) : "unknown";
       const weatherTheme = WEATHER_THEMES[weatherKey] || WEATHER_THEMES.unknown;
@@ -1843,6 +2051,8 @@ function App() {
     buyDecision,
     dinnerResult,
     excuse,
+    fortune,
+    fortuneSeed,
     fishModeIndex,
     fishPops,
     isRolling,
@@ -1891,6 +2101,24 @@ function App() {
             opacity: 0;
             transform: translate(-50%, calc(-50% - 60px)) scale(1.08);
           }
+        }
+        @keyframes popIn {
+          0% {
+            transform: scale(0.9);
+            opacity: 0;
+          }
+          60% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        .animate-popIn {
+          animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          transform-origin: center;
+          will-change: transform, opacity;
         }
       `}</style>
       <button

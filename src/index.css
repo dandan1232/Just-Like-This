@@ -653,6 +653,127 @@
       0 0 8px rgba(242, 165, 49, 0.4);
   }
 
+  .fortune-stage {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.4rem;
+  }
+
+  .fortune-card {
+    width: min(520px, 100%);
+    border-radius: 26px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.92);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+  }
+
+  .fortune-card::before {
+    content: "";
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(247, 226, 168, 0.7), transparent 70%);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  [data-theme="dark"] .fortune-card {
+    background: rgba(36, 31, 28, 0.9);
+    box-shadow: 0 22px 44px -16px rgba(0, 0, 0, 0.5);
+  }
+
+  .fortune-top {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .fortune-keyword {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: var(--font-sans);
+  }
+
+  .fortune-title {
+    margin-top: 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .fortune-note {
+    margin-top: 0.6rem;
+    border-radius: 18px;
+    background: rgba(249, 246, 242, 0.9);
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  [data-theme="dark"] .fortune-note {
+    background: rgba(45, 39, 34, 0.85);
+  }
+
+  .fortune-grid {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .fortune-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  [data-theme="dark"] .fortune-item {
+    background: rgba(36, 31, 28, 0.8);
+  }
+
+  .fortune-label {
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .fortune-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+  }
+
+  .fortune-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--swatch, #f2d58d);
+    display: inline-block;
+  }
+
+  @media (min-width: 768px) {
+    .fortune-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
   .outfit-panel {
     border-radius: 24px;
     border: 1px solid var(--line);
