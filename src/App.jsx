@@ -463,14 +463,21 @@ const TRANSLATIONS = {
       persona: {
         title: "今日人设",
         desc: "我不装了，我摊牌了。",
-        cta: "刷新人设",
-        default: "等待分配",
+        cta: "换一个人设",
+        default: {
+          title: "等待分配",
+          icon: "🎴",
+          desc: "抽卡中，请稍等。",
+        },
         pool: [
-          "退堂鼓表演艺术家",
-          "会议气氛调节员",
-          "灵感捕手",
-          "借口策展人",
-          "情绪降噪师",
+          { title: "退堂鼓表演艺术家", icon: "🥁", desc: "遇到困难，先退为敬。" },
+          { title: "人形咖啡过滤机", icon: "☕", desc: "血管里流的都是美式。" },
+          { title: "带薪如厕高级顾问", icon: "🧻", desc: "灵感来自洗手间。" },
+          { title: "会议气氛调节员", icon: "🎛️", desc: "话题太尴尬？我来控场。" },
+          { title: "灵感捕手", icon: "🪄", desc: "灵感一闪，先记再说。" },
+          { title: "借口策展人", icon: "🗂️", desc: "理由不多，但很体面。" },
+          { title: "情绪降噪师", icon: "🫧", desc: "把杂音降到最低。" },
+          { title: "效率假装家", icon: "🧠", desc: "看起来很忙，其实很稳。" },
         ],
       },
     },
@@ -915,14 +922,21 @@ const TRANSLATIONS = {
       persona: {
         title: "Today Persona",
         desc: "A light label for today.",
-        cta: "Refresh",
-        default: "Pending",
+        cta: "Draw again",
+        default: {
+          title: "Pending",
+          icon: "🎴",
+          desc: "Card is shuffling.",
+        },
         pool: [
-          "Drum of Retreat Artist",
-          "Meeting Vibe Tuner",
-          "Idea Catcher",
-          "Excuse Curator",
-          "Noise Reducer",
+          { title: "Retreat Drum Artist", icon: "🥁", desc: "When in doubt, retreat with style." },
+          { title: "Human Coffee Filter", icon: "☕", desc: "Caffeine is the bloodstream." },
+          { title: "Paid Restroom Consultant", icon: "🧻", desc: "Ideas live in the quiet booth." },
+          { title: "Meeting Vibe Tuner", icon: "🎛️", desc: "Keeps awkwardness in check." },
+          { title: "Idea Catcher", icon: "🪄", desc: "Captures sparks before they fade." },
+          { title: "Excuse Curator", icon: "🗂️", desc: "Few reasons, all elegant." },
+          { title: "Noise Reducer", icon: "🫧", desc: "Softens the mental static." },
+          { title: "Efficiency Cosplayer", icon: "🧠", desc: "Looks busy, stays steady." },
         ],
       },
     },
@@ -1293,6 +1307,7 @@ function App() {
   const [isExcuseRolling, setIsExcuseRolling] = useState(false);
   const [excuseCopied, setExcuseCopied] = useState(false);
   const [persona, setPersona] = useState(t.tools.persona.default);
+  const [personaSeed, setPersonaSeed] = useState(0);
   const [outfitGender, setOutfitGender] = useState("female");
   const [outfitStyle, setOutfitStyle] = useState("commute");
   const [outfitWants, setOutfitWants] = useState([]);
@@ -1325,6 +1340,7 @@ function App() {
     setIsExcuseRolling(false);
     setExcuseCopied(false);
     setPersona(t.tools.persona.default);
+    setPersonaSeed(0);
     setBuyDecision(null);
     setIsBuyThinking(false);
     setRollingItem("");
@@ -1348,6 +1364,13 @@ function App() {
       setFortuneSeed((prev) => prev + 1);
     } else {
       setFortune(null);
+    }
+  }, [activeTool, t]);
+
+  useEffect(() => {
+    if (activeTool === "persona") {
+      setPersona(getRandomItem(t.tools.persona.pool));
+      setPersonaSeed((prev) => prev + 1);
     }
   }, [activeTool, t]);
 
@@ -1475,6 +1498,7 @@ function App() {
 
   const handlePersona = () => {
     setPersona(getRandomItem(t.tools.persona.pool));
+    setPersonaSeed((prev) => prev + 1);
   };
 
   const buildLocation = (place) => ({
@@ -2130,9 +2154,10 @@ function App() {
     }
 
     if (activeTool === "persona") {
+      const personaCard = persona || t.tools.persona.default;
       return (
         <div className="space-y-4">
-          <div className="relative">
+          <div className="relative text-center">
             <h2 className="mt-3 text-2xl font-black tracking-tighter">
               {t.tools.persona.title}
             </h2>
@@ -2140,15 +2165,25 @@ function App() {
               {t.tools.persona.desc}
             </p>
           </div>
-          <div className="rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
-              {t.tools.persona.title}
-            </p>
-            <p className="mt-3 text-2xl font-semibold">{persona}</p>
+          <div className="persona-stage">
+            <div key={personaSeed} className="persona-card animate-popIn">
+              <div className="persona-emoji text-8xl leading-none">
+                {personaCard.icon}
+              </div>
+              <h3 className="persona-title">{personaCard.title}</h3>
+              <p className="persona-desc">{personaCard.desc}</p>
+            </div>
           </div>
-          <button type="button" className="btn-primary active:scale-95" onClick={handlePersona}>
-            {t.tools.persona.cta}
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="btn-primary active:scale-95"
+              onClick={handlePersona}
+            >
+              <Sparkles size={16} />
+              {t.tools.persona.cta}
+            </button>
+          </div>
         </div>
       );
     }
@@ -2176,6 +2211,7 @@ function App() {
     outfitWeather,
     outfitWants,
     persona,
+    personaSeed,
     rollingItem,
     language,
     t,
