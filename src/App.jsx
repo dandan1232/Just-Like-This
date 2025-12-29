@@ -2267,28 +2267,27 @@ function App() {
           will-change: transform, opacity;
         }
       `}</style>
-      <button
-        type="button"
-        onClick={handleCloseTool}
-        className="group fixed left-6 top-6 z-50 flex items-center gap-3 rounded-full border border-stone-200 bg-white/80 px-4 py-2.5 shadow-sm backdrop-blur-xl"
-        aria-label={t.appName}
-      >
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/70">
-          <Leaf
-            size={22}
-            className="text-stone-700 transition-transform duration-200 group-hover:rotate-12"
-          />
-        </span>
-        <span className="text-base font-semibold text-stone-700">{t.appName}</span>
-      </button>
-
       <div
         className={classNames(
           "relative z-10 min-h-screen px-4 pb-16 pt-8 transition-all duration-500 md:px-10",
           activeTool ? "opacity-0 blur-sm pointer-events-none" : "opacity-100"
         )}
       >
-        <div className="sticky top-5 z-20 mx-auto flex max-w-6xl items-start justify-end gap-4">
+        <div className="sticky top-5 z-20 mx-auto flex max-w-6xl items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={handleCloseTool}
+            className="group flex items-center gap-2 rounded-full border border-stone-200 bg-white/70 pl-0 pr-3 py-0 shadow-sm backdrop-blur-xl"
+            aria-label={t.appName}
+          >
+            <span className="flex h-9 w-9 items-center justify-center">
+              <Leaf
+                size={18}
+                className="text-stone-700 transition-transform duration-200 group-hover:rotate-12"
+              />
+            </span>
+            <span className="text-sm font-semibold text-stone-700">{t.appName}</span>
+          </button>
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -2337,28 +2336,25 @@ function App() {
                   ? { title: t.grid.coming, desc: t.grid.comingDesc }
                   : t.tools[tool.id];
               const Icon = tool.icon;
-              return (
-                <button
-                  key={tool.id}
-                  type="button"
-                  onClick={() => handleOpenTool(tool.id)}
-                  className={classNames(
-                    "tool-card group flex h-full flex-col justify-between overflow-hidden p-7 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.98]",
-                    tool.id === "coming" && "cursor-not-allowed opacity-70"
-                  )}
-                  style={{
-                    animationDelay: `${index * 80}ms`,
-                    "--card-glow": tool.glow,
-                    "--card-glow-2": tool.glow2,
-                    "--icon-bg": tool.iconBg,
-                    "--icon-ink": tool.iconInk,
-                  }}
-                >
+              const isComing = tool.id === "coming";
+              const cardClassName = classNames(
+                "tool-card group flex h-full flex-col justify-between overflow-hidden p-7 text-left transition-all duration-300 animate-fadeUp hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.98]",
+                isComing && "opacity-80"
+              );
+              const cardStyle = {
+                animationDelay: `${index * 80}ms`,
+                "--card-glow": tool.glow,
+                "--card-glow-2": tool.glow2,
+                "--icon-bg": tool.iconBg,
+                "--icon-ink": tool.iconInk,
+              };
+              const cardContent = (
+                <>
                   <div className="flex items-center justify-between">
                     <div className="tool-icon flex h-11 w-11 items-center justify-center rounded-2xl transition group-hover:scale-105">
                       <Icon size={20} />
                     </div>
-                    {tool.id !== "coming" && (
+                    {!isComing && (
                       <div className="tool-arrow text-[var(--muted)]">
                         <span role="img" aria-label="go">
                           ➔
@@ -2370,6 +2366,31 @@ function App() {
                     <h3 className="text-2xl font-black tracking-tight">{content.title}</h3>
                     <p className="text-sm text-[var(--muted)]">{content.desc}</p>
                   </div>
+                </>
+              );
+              if (isComing) {
+                return (
+                  <a
+                    key={tool.id}
+                    href="https://github.com/dandan1232/Just-Like-This"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cardClassName}
+                    style={cardStyle}
+                  >
+                    {cardContent}
+                  </a>
+                );
+              }
+              return (
+                <button
+                  key={tool.id}
+                  type="button"
+                  onClick={() => handleOpenTool(tool.id)}
+                  className={cardClassName}
+                  style={cardStyle}
+                >
+                  {cardContent}
                 </button>
               );
             })}
@@ -2380,7 +2401,7 @@ function App() {
             <div className="mt-3 flex items-center justify-center gap-3 text-xs font-medium not-italic text-stone-300">
               <span>{t.footer.copyright}</span>
               <a
-                href="https://github.com/dandan1232"
+                href="https://github.com/dandan1232/Just-Like-This"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-stone-400 transition hover:text-stone-500"
