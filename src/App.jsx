@@ -3,13 +3,17 @@ import {
   BadgeCheck,
   Bell,
   Brain,
+  CloudSun,
   Frown,
   Github,
   Grid2X2,
   Leaf,
+  MapPin,
   MessageCircle,
   Palette,
   Plus,
+  Search,
+  Shirt,
   Smile,
   Sparkles,
   Settings,
@@ -306,6 +310,71 @@ const TRANSLATIONS = {
         modes: ["Bug 退散", "需求不改", "会议收敛", "灵感涌现"],
         responses: ["功德 +1", "已静音尘世", "Bug 已远离", "呼吸变稳了"],
         counterLabel: "今日功德",
+      },
+      outfit: {
+        title: "今日穿搭",
+        desc: "看天气来点不费脑的穿搭建议。",
+        location: {
+          title: "定位与天气",
+          use: "获取当前位置",
+          manualLabel: "手动城市",
+          manualPlaceholder: "输入城市（如 北京）",
+          manualBtn: "查天气",
+          status: {
+            idle: "尚未定位",
+            locating: "定位中…",
+            loading: "获取天气中…",
+            searching: "查找城市中…",
+            ready: "天气已更新",
+            denied: "未授权定位权限",
+            unavailable: "设备不支持定位",
+            error: "获取失败",
+          },
+          unknown: "未知地点",
+        },
+        weather: {
+          label: "当前天气",
+          temperature: "温度",
+          wind: "风速",
+        },
+        gender: {
+          label: "性别",
+          options: [
+            { id: "female", label: "女生" },
+            { id: "male", label: "男生" },
+          ],
+        },
+        style: {
+          label: "穿搭场景",
+          options: [
+            { id: "commute", label: "通勤" },
+            { id: "casual", label: "休闲" },
+            { id: "sport", label: "运动" },
+            { id: "date", label: "约会" },
+            { id: "home", label: "宅家" },
+          ],
+        },
+        wants: {
+          label: "想穿什么",
+          options: [
+            { id: "tee", label: "T恤" },
+            { id: "shirt", label: "衬衫" },
+            { id: "hoodie", label: "卫衣" },
+            { id: "knit", label: "针织" },
+            { id: "jacket", label: "外套" },
+            { id: "trousers", label: "长裤" },
+            { id: "shorts", label: "短裤" },
+            { id: "skirt", label: "半裙" },
+            { id: "dress", label: "连衣裙" },
+            { id: "sneakers", label: "运动鞋" },
+          ],
+        },
+        suggestions: {
+          title: "今日建议",
+          empty: "先获取天气，我再给你穿搭清单。",
+          preference: "偏好",
+          stylePrefix: "场景",
+        },
       },
       excuse: {
         title: "摸鱼借口",
@@ -624,6 +693,71 @@ const TRANSLATIONS = {
         responses: ["Merit +1", "Noise muted", "Bug left", "Breath steadier"],
         counterLabel: "Merit today",
       },
+      outfit: {
+        title: "Outfit Today",
+        desc: "Weather-aware outfit ideas with zero brainpower.",
+        location: {
+          title: "Location & Weather",
+          use: "Use my location",
+          manualLabel: "City",
+          manualPlaceholder: "Enter a city",
+          manualBtn: "Check",
+          status: {
+            idle: "Not located",
+            locating: "Locating…",
+            loading: "Loading weather…",
+            searching: "Searching city…",
+            ready: "Weather ready",
+            denied: "Location permission denied",
+            unavailable: "Location not supported",
+            error: "Failed to fetch",
+          },
+          unknown: "Unknown place",
+        },
+        weather: {
+          label: "Current weather",
+          temperature: "Temp",
+          wind: "Wind",
+        },
+        gender: {
+          label: "Gender",
+          options: [
+            { id: "female", label: "Women" },
+            { id: "male", label: "Men" },
+          ],
+        },
+        style: {
+          label: "Occasion",
+          options: [
+            { id: "commute", label: "Commute" },
+            { id: "casual", label: "Casual" },
+            { id: "sport", label: "Sport" },
+            { id: "date", label: "Date" },
+            { id: "home", label: "Home" },
+          ],
+        },
+        wants: {
+          label: "Want to wear",
+          options: [
+            { id: "tee", label: "T-shirt" },
+            { id: "shirt", label: "Shirt" },
+            { id: "hoodie", label: "Hoodie" },
+            { id: "knit", label: "Knit" },
+            { id: "jacket", label: "Jacket" },
+            { id: "trousers", label: "Trousers" },
+            { id: "shorts", label: "Shorts" },
+            { id: "skirt", label: "Skirt" },
+            { id: "dress", label: "Dress" },
+            { id: "sneakers", label: "Sneakers" },
+          ],
+        },
+        suggestions: {
+          title: "Suggestions",
+          empty: "Grab the weather first and I'll build your list.",
+          preference: "Prefer",
+          stylePrefix: "Scene",
+        },
+      },
       excuse: {
         title: "Perfect Excuse",
         desc: "Absurd yet coherent. Pressure down.",
@@ -680,6 +814,14 @@ const TOOL_CARDS = [
     iconInk: "#a36f14",
   },
   {
+    id: "outfit",
+    icon: Shirt,
+    glow: "rgba(204, 244, 227, 0.75)",
+    glow2: "rgba(232, 252, 244, 0.9)",
+    iconBg: "rgba(170, 225, 204, 0.9)",
+    iconInk: "#2f6a57",
+  },
+  {
     id: "excuse",
     icon: MessageCircle,
     glow: "rgba(200, 236, 248, 0.75)",
@@ -704,6 +846,244 @@ const TOOL_CARDS = [
     iconInk: "#7b7b7b",
   },
 ];
+
+const WEATHER_THEMES = {
+  clear: {
+    icon: "☀️",
+    label: { zh: "晴朗", en: "Clear" },
+    tip: {
+      zh: "日晒偏强，记得防晒或带墨镜。",
+      en: "Sunny skies: consider sunscreen or shades.",
+    },
+  },
+  cloudy: {
+    icon: "☁️",
+    label: { zh: "多云", en: "Cloudy" },
+    tip: {
+      zh: "光线柔和，浅色系更显干净。",
+      en: "Soft light today, lighter colors feel crisp.",
+    },
+  },
+  fog: {
+    icon: "🌫️",
+    label: { zh: "有雾", en: "Foggy" },
+    tip: {
+      zh: "湿冷感明显，注意加一层。",
+      en: "Feels damp and cool, add a layer.",
+    },
+  },
+  drizzle: {
+    icon: "🌦️",
+    label: { zh: "小雨", en: "Drizzle" },
+    tip: {
+      zh: "带伞或轻薄防水外套。",
+      en: "Bring a compact umbrella or light shell.",
+    },
+  },
+  rain: {
+    icon: "🌧️",
+    label: { zh: "下雨", en: "Rain" },
+    tip: {
+      zh: "建议防水外套和耐水鞋。",
+      en: "Waterproof outerwear and shoes help.",
+    },
+  },
+  snow: {
+    icon: "❄️",
+    label: { zh: "下雪", en: "Snow" },
+    tip: {
+      zh: "注意防滑鞋和保暖配件。",
+      en: "Insulated boots and warm accessories.",
+    },
+  },
+  thunder: {
+    icon: "⛈️",
+    label: { zh: "雷雨", en: "Thunderstorm" },
+    tip: {
+      zh: "尽量轻便，记得雨具。",
+      en: "Keep it light and carry rain gear.",
+    },
+  },
+  unknown: {
+    icon: "🌤️",
+    label: { zh: "天气多变", en: "Changeable" },
+    tip: {
+      zh: "备一件外套更安心。",
+      en: "Bring a light layer just in case.",
+    },
+  },
+};
+
+const OUTFIT_BASE = {
+  zh: {
+    hot: {
+      female: ["轻薄吊带/短袖 + 半裙", "亚麻连衣裙 + 凉鞋"],
+      male: ["短袖T恤 + 透气短裤", "薄衬衫 + 九分裤"],
+    },
+    warm: {
+      female: ["短袖衬衫 + 半裙", "薄针织 + 轻薄长裤"],
+      male: ["短袖衬衫 + 九分裤", "薄T + 轻薄外套"],
+    },
+    mild: {
+      female: ["长袖T + 薄外套", "针织衫 + 长裙"],
+      male: ["长袖T + 轻薄夹克", "衬衫 + 休闲裤"],
+    },
+    cool: {
+      female: ["卫衣 + 风衣/夹克", "针织衫 + 长裤"],
+      male: ["卫衣 + 外套", "针织衫 + 休闲裤"],
+    },
+    cold: {
+      female: ["厚外套 + 保暖打底", "呢大衣/羽绒 + 长裤"],
+      male: ["厚外套 + 抓绒内搭", "羽绒/棉服 + 厚裤"],
+    },
+    freeze: {
+      female: ["羽绒服 + 保暖内衣 + 围巾手套", "加厚外套 + 雪地靴"],
+      male: ["羽绒服 + 保暖内衣 + 围巾手套", "加厚外套 + 雪地靴"],
+    },
+  },
+  en: {
+    hot: {
+      female: ["Light tank/tee + skirt", "Linen dress + sandals"],
+      male: ["T-shirt + breathable shorts", "Short-sleeve shirt + cropped pants"],
+    },
+    warm: {
+      female: ["Short-sleeve shirt + skirt", "Light knit + airy pants"],
+      male: ["Short-sleeve shirt + chinos", "Light tee + thin jacket"],
+    },
+    mild: {
+      female: ["Long-sleeve tee + light jacket", "Knit + midi skirt"],
+      male: ["Long-sleeve tee + light jacket", "Shirt + relaxed pants"],
+    },
+    cool: {
+      female: ["Hoodie + trench/jacket", "Knit + long pants"],
+      male: ["Hoodie + jacket", "Sweater + casual pants"],
+    },
+    cold: {
+      female: ["Thick coat + warm base", "Wool coat/down + pants"],
+      male: ["Thick coat + fleece base", "Down jacket + heavy pants"],
+    },
+    freeze: {
+      female: ["Down jacket + thermal base + scarf/gloves", "Puffer + winter boots"],
+      male: ["Down jacket + thermal base + scarf/gloves", "Puffer + winter boots"],
+    },
+  },
+};
+
+const OUTFIT_STYLE_TIPS = {
+  zh: {
+    commute: "通勤：利落层次，外套别太厚。",
+    casual: "休闲：舒适为主，版型放松一点。",
+    sport: "运动：速干弹力面料更轻松。",
+    date: "约会：加一点色彩或配饰。",
+    home: "宅家：柔软面料 + 轻松配色。",
+  },
+  en: {
+    commute: "Commute: clean layers, keep it neat.",
+    casual: "Casual: prioritize comfort and relaxed fits.",
+    sport: "Sport: breathable, stretchy fabrics feel best.",
+    date: "Date: add a little color or accessory.",
+    home: "Home: soft fabrics and easy colors.",
+  },
+};
+
+const OUTFIT_STYLE_BASE = {
+  zh: {
+    commute: {
+      female: ["垂感衬衫 + 直筒裤", "短外套 + 乐福鞋"],
+      male: ["衬衫 + 直筒休闲裤", "轻薄西装外套 + 皮鞋"],
+    },
+    casual: {
+      female: ["宽松T + 牛仔裤", "针织外套 + 运动鞋"],
+      male: ["宽松T + 牛仔裤", "卫衣 + 运动鞋"],
+    },
+    sport: {
+      female: ["速干上衣 + 运动短裤", "紧身打底 + 轻薄风衣"],
+      male: ["速干T + 运动短裤", "运动外套 + 跑鞋"],
+    },
+    date: {
+      female: ["修身针织 + 半裙", "连衣裙 + 乐福鞋"],
+      male: ["衬衫 + 休闲裤", "针织上衣 + 皮鞋"],
+    },
+    home: {
+      female: ["家居套装 + 软拖", "宽松卫衣 + 瑜伽裤"],
+      male: ["家居套装 + 软拖", "宽松卫衣 + 休闲短裤"],
+    },
+  },
+  en: {
+    commute: {
+      female: ["Flowy shirt + straight pants", "Short jacket + loafers"],
+      male: ["Crisp shirt + straight pants", "Light blazer + leather shoes"],
+    },
+    casual: {
+      female: ["Relaxed tee + denim", "Light knit + sneakers"],
+      male: ["Relaxed tee + denim", "Hoodie + sneakers"],
+    },
+    sport: {
+      female: ["Quick-dry top + shorts", "Base layer + light shell"],
+      male: ["Quick-dry tee + shorts", "Training jacket + runners"],
+    },
+    date: {
+      female: ["Fitted knit + skirt", "Dress + loafers"],
+      male: ["Shirt + tapered pants", "Knit top + leather shoes"],
+    },
+    home: {
+      female: ["Lounge set + slides", "Oversized hoodie + leggings"],
+      male: ["Lounge set + slides", "Relaxed hoodie + shorts"],
+    },
+  },
+};
+
+const OUTFIT_WANT_TIPS = {
+  zh: {
+    tee: "想穿T恤：外搭薄衬衫或防晒开衫。",
+    shirt: "想穿衬衫：内搭背心更清爽。",
+    hoodie: "想穿卫衣：下装选直筒更利落。",
+    knit: "想穿针织：加一层内搭更舒适。",
+    jacket: "想穿外套：内搭尽量薄一点。",
+    trousers: "想穿长裤：垂感面料更显利落。",
+    shorts: "想穿短裤：配长袜更休闲。",
+    skirt: "想穿半裙：上衣选短款更有比例。",
+    dress: "想穿连衣裙：带一件轻外套。",
+    sneakers: "想穿运动鞋：整体偏休闲更和谐。",
+  },
+  en: {
+    tee: "Want a tee? Add a light overshirt or cardigan.",
+    shirt: "Want a shirt? A tank base keeps it airy.",
+    hoodie: "Want a hoodie? Pair with straight pants.",
+    knit: "Want a knit? Add a thin base layer.",
+    jacket: "Want a jacket? Keep the inner layer light.",
+    trousers: "Want trousers? Drape-friendly fabrics look sharp.",
+    shorts: "Want shorts? Crew socks make it easygoing.",
+    skirt: "Want a skirt? A cropped top balances proportions.",
+    dress: "Want a dress? Bring a light outer layer.",
+    sneakers: "Want sneakers? Keep the look casual.",
+  },
+};
+
+const OUTFIT_WIND_TIPS = {
+  zh: "风有点大，外套要防风。",
+  en: "Wind is up, grab a windbreaker.",
+};
+
+const getWeatherKey = (code) => {
+  if (code === 0) return "clear";
+  if ([1, 2, 3].includes(code)) return "cloudy";
+  if ([45, 48].includes(code)) return "fog";
+  if ([51, 53, 55, 56, 57].includes(code)) return "drizzle";
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return "rain";
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return "snow";
+  if ([95, 96, 99].includes(code)) return "thunder";
+  return "unknown";
+};
+
+const getTempBand = (temp) => {
+  if (temp >= 30) return "hot";
+  if (temp >= 24) return "warm";
+  if (temp >= 18) return "mild";
+  if (temp >= 10) return "cool";
+  if (temp >= 0) return "cold";
+  return "freeze";
+};
 
 const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)];
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
@@ -759,6 +1139,13 @@ function App() {
 
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
   const [persona, setPersona] = useState(t.tools.persona.default);
+  const [outfitGender, setOutfitGender] = useState("female");
+  const [outfitStyle, setOutfitStyle] = useState("commute");
+  const [outfitWants, setOutfitWants] = useState([]);
+  const [outfitStatus, setOutfitStatus] = useState("idle");
+  const [outfitLocation, setOutfitLocation] = useState(null);
+  const [outfitWeather, setOutfitWeather] = useState(null);
+  const [outfitCityQuery, setOutfitCityQuery] = useState("");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -854,6 +1241,120 @@ function App() {
 
   const handlePersona = () => {
     setPersona(getRandomItem(t.tools.persona.pool));
+  };
+
+  const buildLocation = (place) => ({
+    name: place?.name,
+    admin1: place?.admin1,
+    country: place?.country,
+    latitude: place?.latitude,
+    longitude: place?.longitude,
+  });
+
+  const fetchOutfitWeather = async (latitude, longitude, locationOverride) => {
+    setOutfitStatus("loading");
+    try {
+      const weatherUrl = new URL("https://api.open-meteo.com/v1/forecast");
+      weatherUrl.searchParams.set("latitude", latitude);
+      weatherUrl.searchParams.set("longitude", longitude);
+      weatherUrl.searchParams.set("current_weather", "true");
+      weatherUrl.searchParams.set("timezone", "auto");
+
+      const weatherResponse = await fetch(weatherUrl.toString());
+      if (!weatherResponse.ok) {
+        throw new Error("Weather request failed");
+      }
+      const weatherData = await weatherResponse.json();
+      const currentWeather = weatherData?.current_weather;
+      if (!currentWeather) {
+        throw new Error("Weather data missing");
+      }
+
+      let resolvedLocation = locationOverride;
+      if (!resolvedLocation) {
+        try {
+          const geoUrl = new URL("https://geocoding-api.open-meteo.com/v1/reverse");
+          geoUrl.searchParams.set("latitude", latitude);
+          geoUrl.searchParams.set("longitude", longitude);
+          geoUrl.searchParams.set("count", "1");
+          geoUrl.searchParams.set("language", language === "zh" ? "zh" : "en");
+          const geoResponse = await fetch(geoUrl.toString());
+          if (geoResponse.ok) {
+            const geoData = await geoResponse.json();
+            resolvedLocation = buildLocation(geoData?.results?.[0]);
+          }
+        } catch (error) {
+          resolvedLocation = null;
+        }
+      }
+
+      setOutfitLocation(
+        resolvedLocation || {
+          name: t.tools.outfit.location.unknown,
+          latitude,
+          longitude,
+        }
+      );
+      setOutfitWeather({
+        temperature: currentWeather.temperature,
+        windspeed: currentWeather.windspeed,
+        weathercode: currentWeather.weathercode,
+        isDay: currentWeather.is_day,
+      });
+      setOutfitStatus("ready");
+    } catch (error) {
+      setOutfitStatus("error");
+    }
+  };
+
+  const handleOutfitLocate = () => {
+    if (!navigator.geolocation) {
+      setOutfitStatus("unavailable");
+      return;
+    }
+    setOutfitStatus("locating");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        void fetchOutfitWeather(latitude, longitude);
+      },
+      (error) => {
+        setOutfitStatus(error.code === 1 ? "denied" : "error");
+      },
+      { enableHighAccuracy: false, timeout: 10000 }
+    );
+  };
+
+  const handleOutfitCitySearch = async () => {
+    const query = outfitCityQuery.trim();
+    if (!query) return;
+    setOutfitStatus("searching");
+    try {
+      const geoUrl = new URL("https://geocoding-api.open-meteo.com/v1/search");
+      geoUrl.searchParams.set("name", query);
+      geoUrl.searchParams.set("count", "1");
+      geoUrl.searchParams.set("language", language === "zh" ? "zh" : "en");
+      const geoResponse = await fetch(geoUrl.toString());
+      if (!geoResponse.ok) {
+        throw new Error("Geo request failed");
+      }
+      const geoData = await geoResponse.json();
+      const place = geoData?.results?.[0];
+      if (!place) {
+        setOutfitStatus("error");
+        return;
+      }
+      const location = buildLocation(place);
+      void fetchOutfitWeather(place.latitude, place.longitude, location);
+    } catch (error) {
+      setOutfitStatus("error");
+    }
+  };
+
+  const handleOutfitWantToggle = (id) => {
+    setOutfitWants((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
   const toolContent = useMemo(() => {
@@ -1061,6 +1562,236 @@ function App() {
       );
     }
 
+    if (activeTool === "outfit") {
+      const weatherKey = outfitWeather ? getWeatherKey(outfitWeather.weathercode) : "unknown";
+      const weatherTheme = WEATHER_THEMES[weatherKey] || WEATHER_THEMES.unknown;
+      const weatherLabel = outfitWeather ? weatherTheme.label[language] : "--";
+      const weatherIcon = outfitWeather ? weatherTheme.icon : "🌡️";
+      const tempText = outfitWeather ? `${Math.round(outfitWeather.temperature)}°C` : "--";
+      const windText = outfitWeather ? `${Math.round(outfitWeather.windspeed)} km/h` : "--";
+      const styleLabel =
+        t.tools.outfit.style.options.find((option) => option.id === outfitStyle)?.label ||
+        "";
+      const locationParts = [
+        outfitLocation?.name,
+        outfitLocation?.admin1,
+        outfitLocation?.country,
+      ].filter(Boolean);
+      const locationLabel =
+        locationParts.join(" · ") || t.tools.outfit.location.unknown;
+      const statusLabel =
+        t.tools.outfit.location.status[outfitStatus] ||
+        t.tools.outfit.location.status.idle;
+      const isOutfitBusy = ["locating", "loading", "searching"].includes(outfitStatus);
+      const selectedWants = t.tools.outfit.wants.options
+        .filter((option) => outfitWants.includes(option.id))
+        .map((option) => option.label);
+      const suggestions = [];
+      if (outfitWeather) {
+        const tempBand = getTempBand(outfitWeather.temperature);
+        const baseSuggestions =
+          OUTFIT_BASE[language]?.[tempBand]?.[outfitGender] || [];
+        const styleSuggestions =
+          OUTFIT_STYLE_BASE[language]?.[outfitStyle]?.[outfitGender] || [];
+        const wantSuggestions = outfitWants
+          .map((id) => OUTFIT_WANT_TIPS[language]?.[id])
+          .filter(Boolean);
+        if (styleLabel) {
+          suggestions.push(`${t.tools.outfit.suggestions.stylePrefix}: ${styleLabel}`);
+        }
+        if (selectedWants.length) {
+          suggestions.push(
+            `${t.tools.outfit.suggestions.preference}: ${selectedWants.join(" / ")}`
+          );
+        }
+        suggestions.push(...styleSuggestions.slice(0, 2));
+        suggestions.push(...wantSuggestions.slice(0, 2));
+        suggestions.push(...baseSuggestions.slice(0, 2));
+        const styleTip = OUTFIT_STYLE_TIPS[language]?.[outfitStyle];
+        if (styleTip) {
+          suggestions.push(styleTip);
+        }
+        const weatherTip = weatherTheme.tip?.[language];
+        if (weatherTip) {
+          suggestions.push(weatherTip);
+        }
+        if (outfitWeather.windspeed >= 24) {
+          suggestions.push(OUTFIT_WIND_TIPS[language]);
+        }
+      }
+      const outfitSuggestions = suggestions.filter(Boolean).slice(0, 8);
+      return (
+        <div className="space-y-6">
+          <div className="relative text-center">
+            <h2 className="mt-3 text-2xl font-black tracking-tighter">
+              {t.tools.outfit.title}
+            </h2>
+            <p className="mt-2 text-sm text-[var(--muted)] font-serif">
+              {t.tools.outfit.desc}
+            </p>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
+            <div className="outfit-panel space-y-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                    {t.tools.outfit.location.title}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold">{locationLabel}</p>
+                </div>
+                <span className="outfit-status">{statusLabel}</span>
+              </div>
+              <div className="outfit-weather-card">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{weatherIcon}</span>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.25em] text-[var(--muted)]">
+                      {t.tools.outfit.weather.label}
+                    </p>
+                    <p className="text-lg font-semibold">{weatherLabel}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-3xl font-black">{tempText}</p>
+                  <p className="text-xs text-[var(--muted)]">
+                    {t.tools.outfit.weather.wind}: {windText}
+                  </p>
+                </div>
+              </div>
+              <div className="outfit-actions">
+                <button
+                  type="button"
+                  className="btn-primary active:scale-95"
+                  onClick={handleOutfitLocate}
+                  disabled={isOutfitBusy}
+                >
+                  <MapPin size={16} />
+                  {t.tools.outfit.location.use}
+                </button>
+                <div className="outfit-manual">
+                  <span className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                    {t.tools.outfit.location.manualLabel}
+                  </span>
+                  <div className="outfit-manual-row">
+                    <input
+                      className="field"
+                      value={outfitCityQuery}
+                      onChange={(event) => setOutfitCityQuery(event.target.value)}
+                      placeholder={t.tools.outfit.location.manualPlaceholder}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          void handleOutfitCitySearch();
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="btn-ghost active:scale-95"
+                      onClick={handleOutfitCitySearch}
+                      disabled={isOutfitBusy}
+                    >
+                      <Search size={16} />
+                      {t.tools.outfit.location.manualBtn}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="outfit-panel space-y-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                  {t.tools.outfit.gender.label}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {t.tools.outfit.gender.options.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setOutfitGender(option.id)}
+                      className={classNames(
+                        "rounded-full px-3 py-1 text-xs font-semibold transition active:scale-95",
+                        outfitGender === option.id
+                          ? "bg-[var(--accent)] text-white"
+                          : "border border-[var(--line)] text-[var(--muted)] hover:bg-[var(--accent-soft)]"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                  {t.tools.outfit.style.label}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {t.tools.outfit.style.options.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setOutfitStyle(option.id)}
+                      className={classNames(
+                        "rounded-full px-3 py-1 text-xs font-semibold transition active:scale-95",
+                        outfitStyle === option.id
+                          ? "bg-[var(--accent)] text-white"
+                          : "border border-[var(--line)] text-[var(--muted)] hover:bg-[var(--accent-soft)]"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                  {t.tools.outfit.wants.label}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {t.tools.outfit.wants.options.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => handleOutfitWantToggle(option.id)}
+                      className={classNames(
+                        "rounded-full px-3 py-1 text-xs font-semibold transition active:scale-95",
+                        outfitWants.includes(option.id)
+                          ? "bg-[var(--accent)] text-white"
+                          : "border border-[var(--line)] text-[var(--muted)] hover:bg-[var(--accent-soft)]"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="outfit-panel space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">
+                {t.tools.outfit.suggestions.title}
+              </h3>
+              <CloudSun size={18} className="text-[var(--muted)]" />
+            </div>
+            {outfitWeather ? (
+              <div className="grid gap-2 md:grid-cols-2">
+                {outfitSuggestions.map((item, index) => (
+                  <div key={`${item}-${index}`} className="outfit-suggestion">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[var(--muted)]">
+                {t.tools.outfit.suggestions.empty}
+              </p>
+            )}
+          </div>
+        </div>
+      );
+    }
+
     if (activeTool === "excuse") {
       return (
         <div className="space-y-4">
@@ -1072,8 +1803,8 @@ function App() {
               {t.tools.excuse.desc}
             </p>
           </div>
-          <div className="rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 text-lg font-serif">
-            {excuse}
+          <div className="excuse-card text-lg font-serif">
+            <p className="relative z-10">{excuse}</p>
           </div>
           <button type="button" className="btn-primary active:scale-95" onClick={handleExcuse}>
             {t.tools.excuse.cta}
@@ -1117,8 +1848,16 @@ function App() {
     isRolling,
     menuInput,
     menuItems,
+    outfitCityQuery,
+    outfitGender,
+    outfitLocation,
+    outfitStatus,
+    outfitStyle,
+    outfitWeather,
+    outfitWants,
     persona,
     rollingItem,
+    language,
     t,
   ]);
 

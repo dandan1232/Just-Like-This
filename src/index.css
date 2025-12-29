@@ -345,6 +345,12 @@
     transform: translateY(-1px);
   }
 
+  .btn-ghost:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
   .field {
     width: 100%;
     padding: 0.65rem 1rem;
@@ -645,6 +651,99 @@
     pointer-events: none;
     text-shadow: 0 6px 16px rgba(242, 165, 49, 0.35),
       0 0 8px rgba(242, 165, 49, 0.4);
+  }
+
+  .outfit-panel {
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.82);
+    padding: 1.2rem 1.3rem;
+    box-shadow: 0 14px 30px rgba(45, 36, 26, 0.12);
+  }
+
+  [data-theme="dark"] .outfit-panel {
+    background: rgba(36, 31, 28, 0.82);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+  }
+
+  .outfit-status {
+    font-size: 0.65rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.35rem;
+  }
+
+  .outfit-weather-card {
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.7));
+    padding: 1rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .outfit-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .outfit-manual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .outfit-manual-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  [data-theme="dark"] .outfit-weather-card {
+    background: linear-gradient(135deg, rgba(36, 31, 28, 0.94), rgba(36, 31, 28, 0.72));
+  }
+
+  .outfit-suggestion {
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  [data-theme="dark"] .outfit-suggestion {
+    background: rgba(36, 31, 28, 0.75);
+  }
+
+  .excuse-card {
+    border-radius: 26px;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 14px 30px rgba(45, 36, 26, 0.12);
+  }
+
+  .excuse-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.7), transparent 55%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  [data-theme="dark"] .excuse-card {
+    background: linear-gradient(135deg, rgba(36, 31, 28, 0.95), rgba(36, 31, 28, 0.7));
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
   }
 
   .soft-divider {
