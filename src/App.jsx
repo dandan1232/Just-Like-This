@@ -13,13 +13,11 @@ import {
   MapPin,
   MessageCircle,
   MoonStar,
-  Palette,
   Plus,
   Search,
   Shirt,
   Smile,
   Sparkles,
-  Settings,
   ShoppingBag,
   Utensils,
   X,
@@ -2263,8 +2261,9 @@ function App() {
               title={t.nav.settings}
               className="nav-btn"
             >
-              <Settings size={18} />
-              <span className="hidden text-xs font-semibold sm:inline">{t.nav.settings}</span>
+              <span role="img" aria-hidden="true">
+                🌐
+              </span>
             </button>
             <button
               type="button"
@@ -2273,8 +2272,9 @@ function App() {
               title={t.nav.theme}
               className="nav-btn"
             >
-              <Palette size={18} />
-              <span className="hidden text-xs font-semibold sm:inline">{t.nav.theme}</span>
+              <span role="img" aria-hidden="true">
+                🎨
+              </span>
             </button>
           </div>
         </div>
