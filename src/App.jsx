@@ -900,7 +900,7 @@ const TRANSLATIONS = {
         },
       },
       excuse: {
-        title: "Perfect Excuse",
+        title: "Exit Excuse",
         desc: "Absurd yet coherent. Pressure down.",
         cta: "Generate",
         copy: "Copy",
