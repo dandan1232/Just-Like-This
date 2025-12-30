@@ -392,13 +392,13 @@ const TRANSLATIONS = {
         prefix: "去",
         resultHint: "抽到后这里会出现今天的约会建议。",
         poiTitle: "附近好去处",
-        poiHint: "抽取后会推荐 20km 内的真实地点",
-        poiLoading: "正在搜寻 20km 内的约会地点…",
-        poiEmpty: "20km 内没有匹配结果，换个地点试试。",
+        poiHint: "抽取后会推荐 100km 内的真实地点",
+        poiLoading: "正在搜寻 100km 内的约会地点…",
+        poiEmpty: "100km 内没有匹配结果，换个地点试试。",
         poiError: "搜索失败，请换个地点重试。",
         poiMissingKey: "缺少高德 Key，无法获取周边地点。",
         poiUnknown: "地址待补充",
-        poiRadius: "20km",
+        poiRadius: "100km",
         categories: [
           { label: "热门商场", suffix: "的热门商场去 Window Shopping", keywords: "商场" },
           { label: "江畔公园", suffix: "的江畔公园散步吹风", keywords: "公园" },
@@ -876,7 +876,7 @@ const TRANSLATIONS = {
       date: {
         title: "Date Destination",
         desc: "Type a location and draw today's date spot.",
-        placeholder: " e.g. [Changshu], [Suzhou Center]...",
+        placeholder: "e.g. [Changshu], [Suzhou Center]...",
         cta: "Spin",
         rolling: "Spinning…",
         slotLabel: "Today picks",
@@ -885,13 +885,13 @@ const TRANSLATIONS = {
         prefix: "Go to ",
         resultHint: "Your date suggestion will show up here.",
         poiTitle: "Nearby ideas",
-        poiHint: "After spinning, you'll get real places within 20km.",
-        poiLoading: "Finding date spots within 20km…",
-        poiEmpty: "No matches within 20km. Try a different place.",
+        poiHint: "After spinning, you'll get real places within 100km.",
+        poiLoading: "Finding date spots within 100km…",
+        poiEmpty: "No matches within 100km. Try a different place.",
         poiError: "Search failed. Try a different location.",
         poiMissingKey: "Missing Amap key. Unable to load nearby places.",
         poiUnknown: "Address pending",
-        poiRadius: "20km",
+        poiRadius: "100km",
         categories: [
           { label: "Rooftop bar", suffix: " for a rooftop toast", keywords: "酒吧" },
           { label: "Riverside park", suffix: " for a riverside walk", keywords: "公园" },
@@ -1335,6 +1335,8 @@ const formatDistance = (distance) => {
   if (value < 1000) return `${Math.round(value)}m`;
   return `${(value / 1000).toFixed(1)}km`;
 };
+const formatAmapError = (message, info) =>
+  info ? `${message} (${info})` : message;
 
 const ToolContainer = ({ toolId, content, onBack, labels }) => {
   if (!toolId) return null;
@@ -1572,7 +1574,10 @@ function App() {
       }
       const geoData = await geoResponse.json();
       if (geoData?.status !== "1") {
-        throw new Error("Geo status error");
+        setDatePlaces([]);
+        setDatePlacesStatus("error");
+        setDatePlacesError(formatAmapError(t.tools.date.poiError, geoData?.info));
+        return;
       }
       const geoLocation = geoData?.geocodes?.[0]?.location;
       if (!geoLocation) {
@@ -1581,7 +1586,7 @@ function App() {
       const aroundUrl = new URL("https://restapi.amap.com/v3/place/around");
       aroundUrl.searchParams.set("key", AMAP_KEY);
       aroundUrl.searchParams.set("location", geoLocation);
-      aroundUrl.searchParams.set("radius", "20000");
+      aroundUrl.searchParams.set("radius", "100000");
       aroundUrl.searchParams.set("sortrule", "distance");
       aroundUrl.searchParams.set("offset", "8");
       aroundUrl.searchParams.set("page", "1");
@@ -1594,7 +1599,10 @@ function App() {
       }
       const aroundData = await aroundResponse.json();
       if (aroundData?.status !== "1") {
-        throw new Error("Around status error");
+        setDatePlaces([]);
+        setDatePlacesStatus("error");
+        setDatePlacesError(formatAmapError(t.tools.date.poiError, aroundData?.info));
+        return;
       }
       const pois = Array.isArray(aroundData?.pois) ? aroundData.pois : [];
       const places = pois
