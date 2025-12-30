@@ -383,7 +383,7 @@ const TRANSLATIONS = {
       date: {
         title: "约会去哪儿",
         desc: "写下地点，抽一张今天的约会目的地",
-        placeholder: "输入 IP / 地点",
+        placeholder: "输入约会地点，如：[常熟]、[苏州中心]…",
         cta: "抽一下",
         rolling: "旋转中…",
         slotLabel: "抽到的方向",
@@ -391,19 +391,27 @@ const TRANSLATIONS = {
         resultLabel: "今日建议",
         prefix: "去",
         resultHint: "抽到后这里会出现今天的约会建议。",
+        poiTitle: "附近好去处",
+        poiHint: "抽取后会推荐 20km 内的真实地点",
+        poiLoading: "正在搜寻 20km 内的约会地点…",
+        poiEmpty: "20km 内没有匹配结果，换个地点试试。",
+        poiError: "搜索失败，请换个地点重试。",
+        poiMissingKey: "缺少高德 Key，无法获取周边地点。",
+        poiUnknown: "地址待补充",
+        poiRadius: "20km",
         categories: [
-          { label: "热门商场", suffix: "的热门商场去 Window Shopping" },
-          { label: "江畔公园", suffix: "的江畔公园散步吹风" },
-          { label: "文艺书店", suffix: "的独立书店翻翻新书" },
-          { label: "复古影院", suffix: "的复古影院看一场老电影" },
-          { label: "隐秘咖啡馆", suffix: "的角落咖啡馆慢慢聊天" },
-          { label: "美术馆", suffix: "的美术馆看一场新展" },
-          { label: "夜市", suffix: "的夜市边逛边吃" },
-          { label: "花园餐厅", suffix: "的花园餐厅坐窗边" },
-          { label: "天台酒吧", suffix: "的天台酒吧微醺一下" },
-          { label: "水族馆", suffix: "的水族馆看蓝色海" },
-          { label: "周末市集", suffix: "的周末市集淘点小物" },
-          { label: "城市天台", suffix: "的城市天台吹吹晚风" },
+          { label: "热门商场", suffix: "的热门商场去 Window Shopping", keywords: "商场" },
+          { label: "江畔公园", suffix: "的江畔公园散步吹风", keywords: "公园" },
+          { label: "文艺书店", suffix: "的独立书店翻翻新书", keywords: "书店" },
+          { label: "复古影院", suffix: "的复古影院看一场老电影", keywords: "电影院" },
+          { label: "隐秘咖啡馆", suffix: "的角落咖啡馆慢慢聊天", keywords: "咖啡馆" },
+          { label: "美术馆", suffix: "的美术馆看一场新展", keywords: "美术馆" },
+          { label: "夜市", suffix: "的夜市边逛边吃", keywords: "夜市" },
+          { label: "花园餐厅", suffix: "的花园餐厅坐窗边", keywords: "餐厅" },
+          { label: "天台酒吧", suffix: "的天台酒吧微醺一下", keywords: "酒吧" },
+          { label: "水族馆", suffix: "的水族馆看蓝色海", keywords: "水族馆" },
+          { label: "周末市集", suffix: "的周末市集淘点小物", keywords: "市集" },
+          { label: "城市天台", suffix: "的城市天台吹吹晚风", keywords: "观景台" },
         ],
       },
       outfit: {
@@ -868,7 +876,7 @@ const TRANSLATIONS = {
       date: {
         title: "Date Destination",
         desc: "Type a location and draw today's date spot.",
-        placeholder: "Enter city / area",
+        placeholder: "Enter a date spot, e.g. [Changshu], [Suzhou Center]...",
         cta: "Spin",
         rolling: "Spinning…",
         slotLabel: "Today picks",
@@ -876,19 +884,27 @@ const TRANSLATIONS = {
         resultLabel: "Suggestion",
         prefix: "Go to ",
         resultHint: "Your date suggestion will show up here.",
+        poiTitle: "Nearby ideas",
+        poiHint: "After spinning, you'll get real places within 20km.",
+        poiLoading: "Finding date spots within 20km…",
+        poiEmpty: "No matches within 20km. Try a different place.",
+        poiError: "Search failed. Try a different location.",
+        poiMissingKey: "Missing Amap key. Unable to load nearby places.",
+        poiUnknown: "Address pending",
+        poiRadius: "20km",
         categories: [
-          { label: "Rooftop bar", suffix: " for a rooftop toast" },
-          { label: "Riverside park", suffix: " for a riverside walk" },
-          { label: "Indie bookstore", suffix: " for a cozy bookstore browse" },
-          { label: "Art museum", suffix: " to catch a fresh exhibition" },
-          { label: "Night market", suffix: " for a night market food stroll" },
-          { label: "Retro cinema", suffix: " to watch a classic film" },
-          { label: "Hidden cafe", suffix: " for a slow coffee chat" },
-          { label: "Garden bistro", suffix: " for a window-side dinner" },
-          { label: "Aquarium", suffix: " to drift through blue lights" },
-          { label: "Weekend market", suffix: " to pick up tiny treasures" },
-          { label: "Arcade", suffix: " for a playful arcade round" },
-          { label: "City overlook", suffix: " to catch the night view" },
+          { label: "Rooftop bar", suffix: " for a rooftop toast", keywords: "酒吧" },
+          { label: "Riverside park", suffix: " for a riverside walk", keywords: "公园" },
+          { label: "Indie bookstore", suffix: " for a cozy bookstore browse", keywords: "书店" },
+          { label: "Art museum", suffix: " to catch a fresh exhibition", keywords: "美术馆" },
+          { label: "Night market", suffix: " for a night market food stroll", keywords: "夜市" },
+          { label: "Retro cinema", suffix: " to watch a classic film", keywords: "电影院" },
+          { label: "Hidden cafe", suffix: " for a slow coffee chat", keywords: "咖啡馆" },
+          { label: "Garden bistro", suffix: " for a window-side dinner", keywords: "餐厅" },
+          { label: "Aquarium", suffix: " to drift through blue lights", keywords: "水族馆" },
+          { label: "Weekend market", suffix: " to pick up tiny treasures", keywords: "市集" },
+          { label: "Arcade", suffix: " for a playful arcade round", keywords: "游戏厅" },
+          { label: "City overlook", suffix: " to catch the night view", keywords: "观景台" },
         ],
       },
       outfit: {
@@ -1312,6 +1328,13 @@ const getRandomItem = (items) => items[Math.floor(Math.random() * items.length)]
 const classNames = (...classes) => classes.filter(Boolean).join(" ");
 const getUniqueId = () =>
   `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+const AMAP_KEY = import.meta.env.VITE_AMAP_KEY;
+const formatDistance = (distance) => {
+  const value = Number(distance);
+  if (!Number.isFinite(value)) return "";
+  if (value < 1000) return `${Math.round(value)}m`;
+  return `${(value / 1000).toFixed(1)}km`;
+};
 
 const ToolContainer = ({ toolId, content, onBack, labels }) => {
   if (!toolId) return null;
@@ -1368,6 +1391,9 @@ function App() {
   const [dateResultLocation, setDateResultLocation] = useState("");
   const [dateSeed, setDateSeed] = useState(0);
   const [isDateSpinning, setIsDateSpinning] = useState(false);
+  const [datePlaces, setDatePlaces] = useState([]);
+  const [datePlacesStatus, setDatePlacesStatus] = useState("idle");
+  const [datePlacesError, setDatePlacesError] = useState("");
 
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
   const [isExcuseRolling, setIsExcuseRolling] = useState(false);
@@ -1385,6 +1411,7 @@ function App() {
   const excuseIntervalRef = useRef(null);
   const excuseCopyTimeoutRef = useRef(null);
   const dateSpinIntervalRef = useRef(null);
+  const dateSearchRef = useRef(0);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -1416,11 +1443,15 @@ function App() {
       clearInterval(dateSpinIntervalRef.current);
       dateSpinIntervalRef.current = null;
     }
+    setDateLocation("");
     setDateResult(null);
     setDateRolling(null);
     setDateResultLocation("");
     setDateSeed(0);
     setIsDateSpinning(false);
+    setDatePlaces([]);
+    setDatePlacesStatus("idle");
+    setDatePlacesError("");
   }, [language, menuTouched, t]);
 
   useEffect(() => {
@@ -1517,6 +1548,85 @@ function App() {
     }, 600);
   };
 
+  const fetchDatePlaces = async ({ location, keyword }) => {
+    const query = location.trim();
+    if (!query) return;
+    const requestId = Date.now();
+    dateSearchRef.current = requestId;
+    if (!AMAP_KEY) {
+      setDatePlaces([]);
+      setDatePlacesStatus("error");
+      setDatePlacesError(t.tools.date.poiMissingKey);
+      return;
+    }
+    setDatePlacesStatus("loading");
+    setDatePlacesError("");
+    setDatePlaces([]);
+    try {
+      const geoUrl = new URL("https://restapi.amap.com/v3/geocode/geo");
+      geoUrl.searchParams.set("address", query);
+      geoUrl.searchParams.set("key", AMAP_KEY);
+      const geoResponse = await fetch(geoUrl.toString());
+      if (!geoResponse.ok) {
+        throw new Error("Geo request failed");
+      }
+      const geoData = await geoResponse.json();
+      if (geoData?.status !== "1") {
+        throw new Error("Geo status error");
+      }
+      const geoLocation = geoData?.geocodes?.[0]?.location;
+      if (!geoLocation) {
+        throw new Error("No geocode");
+      }
+      const aroundUrl = new URL("https://restapi.amap.com/v3/place/around");
+      aroundUrl.searchParams.set("key", AMAP_KEY);
+      aroundUrl.searchParams.set("location", geoLocation);
+      aroundUrl.searchParams.set("radius", "20000");
+      aroundUrl.searchParams.set("sortrule", "distance");
+      aroundUrl.searchParams.set("offset", "8");
+      aroundUrl.searchParams.set("page", "1");
+      if (keyword) {
+        aroundUrl.searchParams.set("keywords", keyword);
+      }
+      const aroundResponse = await fetch(aroundUrl.toString());
+      if (!aroundResponse.ok) {
+        throw new Error("Around request failed");
+      }
+      const aroundData = await aroundResponse.json();
+      if (aroundData?.status !== "1") {
+        throw new Error("Around status error");
+      }
+      const pois = Array.isArray(aroundData?.pois) ? aroundData.pois : [];
+      const places = pois
+        .map((poi) => {
+          const addressParts = [poi.address, poi.adname, poi.cityname].filter(Boolean);
+          return {
+            id: poi.id || `${poi.location}-${poi.name}`,
+            name: poi.name,
+            address: addressParts.join(" ") || t.tools.date.poiUnknown,
+            distance: formatDistance(poi.distance),
+          };
+        })
+        .filter((poi) => poi.name);
+      if (dateSearchRef.current !== requestId) {
+        return;
+      }
+      if (!places.length) {
+        setDatePlacesStatus("empty");
+        return;
+      }
+      setDatePlaces(places);
+      setDatePlacesStatus("success");
+    } catch (error) {
+      if (dateSearchRef.current !== requestId) {
+        return;
+      }
+      setDatePlaces([]);
+      setDatePlacesStatus("error");
+      setDatePlacesError(t.tools.date.poiError);
+    }
+  };
+
   const handleDateSpin = () => {
     const location = dateLocation.trim();
     if (!location || isDateSpinning) return;
@@ -1527,6 +1637,9 @@ function App() {
     setIsDateSpinning(true);
     setDateResult(null);
     setDateResultLocation(location);
+    setDatePlacesStatus("idle");
+    setDatePlacesError("");
+    setDatePlaces([]);
     let count = 0;
     const categories = t.tools.date.categories;
     const interval = setInterval(() => {
@@ -1539,6 +1652,7 @@ function App() {
         setDateResult(pick);
         setDateSeed((prev) => prev + 1);
         setIsDateSpinning(false);
+        void fetchDatePlaces({ location, keyword: pick.keywords || pick.label });
       }
     }, 80);
     dateSpinIntervalRef.current = interval;
@@ -2026,6 +2140,43 @@ function App() {
                   )}
                 </div>
               </div>
+              <div className="mt-5 date-places">
+                <div className="date-places-head">
+                  <span className="text-[0.65rem] uppercase tracking-[0.3em] text-rose-400">
+                    {t.tools.date.poiTitle}
+                  </span>
+                  <span className="chip text-rose-500">{t.tools.date.poiRadius}</span>
+                </div>
+                {datePlacesStatus === "idle" && (
+                  <p className="text-xs text-rose-400">{t.tools.date.poiHint}</p>
+                )}
+                {datePlacesStatus === "loading" && (
+                  <p className="text-xs text-rose-500/80">{t.tools.date.poiLoading}</p>
+                )}
+                {datePlacesStatus === "empty" && (
+                  <p className="text-xs text-rose-400">{t.tools.date.poiEmpty}</p>
+                )}
+                {datePlacesStatus === "error" && (
+                  <p className="text-xs text-rose-400">
+                    {datePlacesError || t.tools.date.poiError}
+                  </p>
+                )}
+                {datePlacesStatus === "success" && (
+                  <div className="date-places-grid">
+                    {datePlaces.map((place) => (
+                      <div key={place.id} className="date-place">
+                        <div className="date-place-head">
+                          <p className="date-place-name">{place.name}</p>
+                          {place.distance && (
+                            <span className="date-place-distance">{place.distance}</span>
+                          )}
+                        </div>
+                        <p className="date-place-address">{place.address}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -2405,6 +2556,9 @@ function App() {
     activeTool,
     buyDecision,
     dateLocation,
+    datePlaces,
+    datePlacesError,
+    datePlacesStatus,
     dateResult,
     dateResultLocation,
     dateRolling,
