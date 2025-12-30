@@ -383,7 +383,7 @@ const TRANSLATIONS = {
       date: {
         title: "约会去哪儿",
         desc: "写下地点，抽一张今天的约会目的地",
-        placeholder: "输入约会地点，如：[常熟]、[苏州中心]…",
+        placeholder: "如：[常熟]、[苏州中心]…",
         cta: "抽一下",
         rolling: "旋转中…",
         slotLabel: "抽到的方向",
@@ -876,7 +876,7 @@ const TRANSLATIONS = {
       date: {
         title: "Date Destination",
         desc: "Type a location and draw today's date spot.",
-        placeholder: "Enter a date spot, e.g. [Changshu], [Suzhou Center]...",
+        placeholder: " e.g. [Changshu], [Suzhou Center]...",
         cta: "Spin",
         rolling: "Spinning…",
         slotLabel: "Today picks",

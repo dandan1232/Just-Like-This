@@ -32,6 +32,14 @@ npm install
 npm run dev
 ```
 
+## 环境变量
+
+如需启用“约会去哪儿”的周边地点搜索，请创建 `.env.local` 并填入：
+
+```bash
+VITE_AMAP_KEY=你的高德KEY
+```
+
 ## 目录结构
 
 ```

@@ -808,6 +808,59 @@
     box-shadow: 0 12px 24px -18px rgba(244, 63, 94, 0.4);
   }
 
+  .date-places {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .date-places-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .date-places-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .date-place {
+    border-radius: 18px;
+    border: 1px solid rgba(244, 114, 182, 0.25);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0.75rem 0.95rem;
+  }
+
+  .date-place-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.6rem;
+  }
+
+  .date-place-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #be123c;
+  }
+
+  .date-place-distance {
+    border-radius: 999px;
+    border: 1px dashed rgba(244, 63, 94, 0.4);
+    padding: 0.1rem 0.45rem;
+    font-size: 0.7rem;
+    color: rgba(244, 63, 94, 0.8);
+    white-space: nowrap;
+  }
+
+  .date-place-address {
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    color: rgba(225, 29, 72, 0.7);
+    line-height: 1.4;
+  }
+
   .date-cta {
     display: inline-flex;
     align-items: center;
@@ -849,6 +902,24 @@
   [data-theme="dark"] .date-result {
     background: rgba(36, 31, 28, 0.9);
     border-color: rgba(244, 114, 182, 0.25);
+  }
+
+  [data-theme="dark"] .date-place {
+    background: rgba(36, 31, 28, 0.9);
+    border-color: rgba(244, 114, 182, 0.2);
+  }
+
+  [data-theme="dark"] .date-place-name {
+    color: #fda4af;
+  }
+
+  [data-theme="dark"] .date-place-distance {
+    border-color: rgba(244, 114, 182, 0.4);
+    color: rgba(244, 114, 182, 0.9);
+  }
+
+  [data-theme="dark"] .date-place-address {
+    color: rgba(244, 114, 182, 0.7);
   }
 
   [data-theme="dark"] .date-input {
