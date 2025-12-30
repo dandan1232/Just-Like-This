@@ -380,6 +380,32 @@ const TRANSLATIONS = {
           },
         ],
       },
+      date: {
+        title: "约会去哪儿",
+        desc: "写下地点，抽一张今天的约会目的地",
+        placeholder: "输入 IP / 地点",
+        cta: "抽一下",
+        rolling: "旋转中…",
+        slotLabel: "抽到的方向",
+        slotHint: "等待指针停下",
+        resultLabel: "今日建议",
+        prefix: "去",
+        resultHint: "抽到后这里会出现今天的约会建议。",
+        categories: [
+          { label: "热门商场", suffix: "的热门商场去 Window Shopping" },
+          { label: "江畔公园", suffix: "的江畔公园散步吹风" },
+          { label: "文艺书店", suffix: "的独立书店翻翻新书" },
+          { label: "复古影院", suffix: "的复古影院看一场老电影" },
+          { label: "隐秘咖啡馆", suffix: "的角落咖啡馆慢慢聊天" },
+          { label: "美术馆", suffix: "的美术馆看一场新展" },
+          { label: "夜市", suffix: "的夜市边逛边吃" },
+          { label: "花园餐厅", suffix: "的花园餐厅坐窗边" },
+          { label: "天台酒吧", suffix: "的天台酒吧微醺一下" },
+          { label: "水族馆", suffix: "的水族馆看蓝色海" },
+          { label: "周末市集", suffix: "的周末市集淘点小物" },
+          { label: "城市天台", suffix: "的城市天台吹吹晚风" },
+        ],
+      },
       outfit: {
         title: "今日穿搭",
         desc: "看天气来点不费脑的穿搭建议",
@@ -839,6 +865,32 @@ const TRANSLATIONS = {
           },
         ],
       },
+      date: {
+        title: "Date Destination",
+        desc: "Type a location and draw today's date spot.",
+        placeholder: "Enter city / area",
+        cta: "Spin",
+        rolling: "Spinning…",
+        slotLabel: "Today picks",
+        slotHint: "Waiting for the pointer to stop",
+        resultLabel: "Suggestion",
+        prefix: "Go to ",
+        resultHint: "Your date suggestion will show up here.",
+        categories: [
+          { label: "Rooftop bar", suffix: " for a rooftop toast" },
+          { label: "Riverside park", suffix: " for a riverside walk" },
+          { label: "Indie bookstore", suffix: " for a cozy bookstore browse" },
+          { label: "Art museum", suffix: " to catch a fresh exhibition" },
+          { label: "Night market", suffix: " for a night market food stroll" },
+          { label: "Retro cinema", suffix: " to watch a classic film" },
+          { label: "Hidden cafe", suffix: " for a slow coffee chat" },
+          { label: "Garden bistro", suffix: " for a window-side dinner" },
+          { label: "Aquarium", suffix: " to drift through blue lights" },
+          { label: "Weekend market", suffix: " to pick up tiny treasures" },
+          { label: "Arcade", suffix: " for a playful arcade round" },
+          { label: "City overlook", suffix: " to catch the night view" },
+        ],
+      },
       outfit: {
         title: "Outfit Today",
         desc: "Weather-aware outfit ideas with zero brainpower.",
@@ -967,6 +1019,14 @@ const TOOL_CARDS = [
     glow2: "rgba(255, 249, 236, 0.9)",
     iconBg: "rgba(250, 210, 146, 0.9)",
     iconInk: "#a36f14",
+  },
+  {
+    id: "date",
+    icon: MapPin,
+    glow: "rgba(255, 215, 227, 0.75)",
+    glow2: "rgba(255, 238, 244, 0.9)",
+    iconBg: "rgba(248, 183, 201, 0.9)",
+    iconInk: "#9b2c4c",
   },
   {
     id: "fortune",
@@ -1302,6 +1362,12 @@ function App() {
 
   const [fortune, setFortune] = useState(null);
   const [fortuneSeed, setFortuneSeed] = useState(0);
+  const [dateLocation, setDateLocation] = useState("");
+  const [dateResult, setDateResult] = useState(null);
+  const [dateRolling, setDateRolling] = useState(null);
+  const [dateResultLocation, setDateResultLocation] = useState("");
+  const [dateSeed, setDateSeed] = useState(0);
+  const [isDateSpinning, setIsDateSpinning] = useState(false);
 
   const [excuse, setExcuse] = useState(t.tools.excuse.default);
   const [isExcuseRolling, setIsExcuseRolling] = useState(false);
@@ -1318,6 +1384,7 @@ function App() {
 
   const excuseIntervalRef = useRef(null);
   const excuseCopyTimeoutRef = useRef(null);
+  const dateSpinIntervalRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -1345,6 +1412,15 @@ function App() {
     setIsBuyThinking(false);
     setRollingItem("");
     setDinnerResult("");
+    if (dateSpinIntervalRef.current) {
+      clearInterval(dateSpinIntervalRef.current);
+      dateSpinIntervalRef.current = null;
+    }
+    setDateResult(null);
+    setDateRolling(null);
+    setDateResultLocation("");
+    setDateSeed(0);
+    setIsDateSpinning(false);
   }, [language, menuTouched, t]);
 
   useEffect(() => {
@@ -1354,6 +1430,9 @@ function App() {
       }
       if (excuseCopyTimeoutRef.current) {
         clearTimeout(excuseCopyTimeoutRef.current);
+      }
+      if (dateSpinIntervalRef.current) {
+        clearInterval(dateSpinIntervalRef.current);
       }
     };
   }, []);
@@ -1366,6 +1445,14 @@ function App() {
       setFortune(null);
     }
   }, [activeTool, t]);
+
+  useEffect(() => {
+    if (activeTool !== "date" && dateSpinIntervalRef.current) {
+      clearInterval(dateSpinIntervalRef.current);
+      dateSpinIntervalRef.current = null;
+      setIsDateSpinning(false);
+    }
+  }, [activeTool]);
 
   useEffect(() => {
     if (activeTool === "persona") {
@@ -1428,6 +1515,33 @@ function App() {
       });
       setIsBuyThinking(false);
     }, 600);
+  };
+
+  const handleDateSpin = () => {
+    const location = dateLocation.trim();
+    if (!location || isDateSpinning) return;
+    if (dateSpinIntervalRef.current) {
+      clearInterval(dateSpinIntervalRef.current);
+      dateSpinIntervalRef.current = null;
+    }
+    setIsDateSpinning(true);
+    setDateResult(null);
+    setDateResultLocation(location);
+    let count = 0;
+    const categories = t.tools.date.categories;
+    const interval = setInterval(() => {
+      const pick = getRandomItem(categories);
+      setDateRolling(pick);
+      count += 1;
+      if (count >= 12) {
+        clearInterval(interval);
+        dateSpinIntervalRef.current = null;
+        setDateResult(pick);
+        setDateSeed((prev) => prev + 1);
+        setIsDateSpinning(false);
+      }
+    }, 80);
+    dateSpinIntervalRef.current = interval;
   };
 
   const handleFishTap = (event) => {
@@ -1820,6 +1934,104 @@ function App() {
       );
     }
 
+    if (activeTool === "date") {
+      const locationText = dateLocation.trim();
+      const isLocationReady = Boolean(locationText);
+      const activePick = dateResult || dateRolling;
+      const resultLocation = dateResultLocation || locationText;
+      const resultText =
+        dateResult && resultLocation
+          ? `${t.tools.date.prefix}${resultLocation}${dateResult.suffix}`
+          : "";
+      return (
+        <div className="space-y-6">
+          <div className="relative text-center">
+            <h2 className="mt-3 text-2xl font-black tracking-tighter">
+              {t.tools.date.title}
+            </h2>
+            <p className="mt-2 text-sm text-[var(--muted)] font-serif">
+              {t.tools.date.desc}
+            </p>
+          </div>
+          <div className="fortune-stage">
+            <div className="date-card border-2 border-dashed border-rose-200 bg-rose-50">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2 text-rose-600">
+                    <MapPin size={16} />
+                    <span className="text-xs font-semibold uppercase tracking-[0.35em]">
+                      {t.tools.date.title}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-rose-500/80">
+                    {t.tools.date.desc}
+                  </p>
+                </div>
+                <span className="chip text-rose-500">{t.tools.date.resultLabel}</span>
+              </div>
+              <div className="mt-4 flex flex-col gap-3 md:flex-row md:items-center">
+                <div className="relative flex-1">
+                  <MapPin
+                    size={16}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-rose-300"
+                  />
+                  <input
+                    className="date-input w-full rounded-full border border-rose-200 bg-white/80 py-2.5 pl-10 pr-4 text-sm text-rose-700 placeholder:text-rose-300 focus:border-rose-200 focus:ring-2 focus:ring-rose-100 transition-all"
+                    value={dateLocation}
+                    onChange={(event) => setDateLocation(event.target.value)}
+                    placeholder={t.tools.date.placeholder}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="date-cta active:scale-95"
+                  onClick={handleDateSpin}
+                  disabled={!isLocationReady || isDateSpinning}
+                >
+                  <Sparkles size={16} className={isDateSpinning ? "animate-spin" : ""} />
+                  {isDateSpinning ? t.tools.date.rolling : t.tools.date.cta}
+                </button>
+              </div>
+              <div className="mt-4 space-y-3">
+                <div
+                  className={classNames(
+                    "date-slot transition-all",
+                    isDateSpinning && "blur-[1px] scale-95"
+                  )}
+                >
+                  <p className="text-[0.65rem] uppercase tracking-[0.3em] text-rose-400">
+                    {t.tools.date.slotLabel}
+                  </p>
+                  <p
+                    className={classNames(
+                      "mt-2 text-xl font-bold text-rose-600",
+                      isDateSpinning && "animate-pulse"
+                    )}
+                  >
+                    {activePick?.label || t.tools.date.slotHint}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[0.65rem] uppercase tracking-[0.3em] text-rose-400">
+                    {t.tools.date.resultLabel}
+                  </p>
+                  {dateResult && resultText ? (
+                    <div key={dateSeed} className="date-result animate-popIn text-rose-600">
+                      {resultText}
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-xs text-rose-400">
+                      {t.tools.date.resultHint}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     if (activeTool === "fortune") {
       return (
         <div className="space-y-5">
@@ -2192,9 +2404,15 @@ function App() {
   }, [
     activeTool,
     buyDecision,
+    dateLocation,
+    dateResult,
+    dateResultLocation,
+    dateRolling,
+    dateSeed,
     dinnerResult,
     excuse,
     excuseCopied,
+    isDateSpinning,
     isExcuseRolling,
     fortune,
     fortuneSeed,

@@ -768,6 +768,99 @@
     display: inline-block;
   }
 
+  .date-card {
+    width: min(520px, 100%);
+    border-radius: 26px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 22px 44px -28px rgba(244, 63, 94, 0.35);
+  }
+
+  .date-card::after {
+    content: "";
+    position: absolute;
+    left: -40px;
+    top: -40px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.28), transparent 70%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .date-slot {
+    border-radius: 20px;
+    border: 1px solid rgba(244, 114, 182, 0.35);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .date-result {
+    margin-top: 0.6rem;
+    border-radius: 18px;
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.85rem 1rem;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 12px 24px -18px rgba(244, 63, 94, 0.4);
+  }
+
+  .date-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 999px;
+    background: #f43f5e;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    box-shadow: 0 12px 24px -18px rgba(244, 63, 94, 0.6);
+  }
+
+  .date-cta:hover {
+    background: #e11d48;
+    transform: translateY(-1px);
+  }
+
+  .date-cta:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  [data-theme="dark"] .date-card {
+    background: rgba(42, 30, 34, 0.92);
+    border-color: rgba(244, 114, 182, 0.35);
+    box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.6);
+  }
+
+  [data-theme="dark"] .date-slot {
+    background: rgba(36, 31, 28, 0.82);
+    border-color: rgba(244, 114, 182, 0.25);
+  }
+
+  [data-theme="dark"] .date-result {
+    background: rgba(36, 31, 28, 0.9);
+    border-color: rgba(244, 114, 182, 0.25);
+  }
+
+  [data-theme="dark"] .date-input {
+    background: rgba(36, 31, 28, 0.85);
+    border-color: rgba(244, 114, 182, 0.35);
+    color: #fce7f3;
+  }
+
+  [data-theme="dark"] .date-input::placeholder {
+    color: rgba(252, 231, 243, 0.5);
+  }
+
   @media (min-width: 768px) {
     .fortune-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
